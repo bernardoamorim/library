@@ -10,10 +10,10 @@
 // query O(logn)
 // update O(logn)
 
-void build(int node, int start, int end) {
+void build(ll node, ll start, ll end) {
     if(start == end) tree[node] = A[start];
     else {
-        int mid = (start + end) / 2;
+        ll mid = (start + end) / 2;
         
         build(2*node, start, mid);
         build(2*node+1, mid+1, end);
@@ -23,18 +23,52 @@ void build(int node, int start, int end) {
 }
 
 void update_range(int node, int start, int end, int l, int r, int val) {
-    
-    if (start > end or start > r or end < l)
-        return;
+    if(lazy[node] != 0) { 
+        tree[node] += (end - start + 1) * lazy[node];    
+        if(start != end) {
+            lazy[node*2] += lazy[node];                  
+            lazy[node*2+1] += lazy[node];              
+        }
+        lazy[node] = 0;                                  
+    }
+    if(start > end or start > r or end < l) return;
 
-    if (start == end) {
-        tree[node] += val;
+    if(start >= l and end <= r) {
+        
+        tree[node] += (end - start + 1) * val;
+        if(start != end) {
+   
+            lazy[node*2] += val;
+            lazy[node*2+1] += val;
+        }
         return;
     }
 
     int mid = (start + end) / 2;
-    updateRange(node*2, start, mid, l, r, val);
-    updateRange(node*2 + 1, mid + 1, end, l, r, val);
+    update_range(node*2, start, mid, l, r, val);      
+    update_range(node*2 + 1, mid + 1, end, l, r, val);  
+    tree[node] = tree[node*2] + tree[node*2+1];        
+}
 
-    tree[node] = tree[node*2] + tree[node*2+1];
+
+ll query_range(ll node, ll start, ll end, ll l, ll r) {
+    if(start > end or start > r or end < l) return 0;
+       
+    if(lazy[node] != 0) {
+
+        tree[node] += (end - start + 1) * lazy[node];       
+        if(start != end) {
+            lazy[node*2] += lazy[node];        
+            lazy[node*2+1] += lazy[node];
+        }
+        lazy[node] = 0;                
+    }
+
+    if(start >= l and end <= r) return tree[node];
+
+    ll mid = (start + end) / 2;
+    ll p1 = query_range(node*2, start, mid, l, r);        
+    ll p2 = query_range(node*2 + 1, mid + 1, end, l, r); 
+
+    return (p1 + p2);
 }
