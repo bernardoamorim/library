@@ -1,3 +1,3 @@
 /vim ~/.vimrc
 
-:set ts=2 sw=2 autoindent si nu mouse=a relativenumber
+:set ts=4 sw=4 autoindent si nu mouse=a relativenumber
