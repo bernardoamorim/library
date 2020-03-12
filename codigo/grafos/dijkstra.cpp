@@ -7,7 +7,7 @@
 //
 // O(m log(n))
 
-vector<vector<pii> > grafo;
+vector<vector<pii> > g;
 vector<int> dist;
 vector<bool> vis;
 
@@ -26,7 +26,7 @@ void dijkstra(int x) {
 		if (vis[a]) continue;
 		vis[a] = true;
 
-		for (auto u : grafo[a]) {
+		for (auto u : g[a]) {
 			int b = u.first, w = u.second;
 
 			if (dist[a]+w < dist[b]) {
