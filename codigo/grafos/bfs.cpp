@@ -15,7 +15,7 @@ void bfs(int x) {
 	while (!q.empty()) {
 		int s = q.front(); q.pop();
 		// process node s
-		for (auto u : adj[s]) {
+		for (auto u : g[s]) {
 			if (vis[u]) continue;
 			vis[u] = true;
 			dist[u] = dist[s]+1;
