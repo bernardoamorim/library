@@ -15,17 +15,18 @@ int in[MAX], out[MAX];
 
 void dfs(int k) {
 	in[k] = p++;
-	for (int i = 0; i < (int) g[k].size(); i++)
-		if (in[g[k][i]] == -1) {
-			pai[0][g[k][i]] = k;
-			dfs(g[k][i]);
+	for (auto u : g[k]) {
+		if (in[u] == -1) {
+			pai[0][u] = k;
+			dfs(u);
 		}
+	}
 	out[k] = p++;
 }
 
 void build(int raiz) {
 	for (int i = 0; i < n; i++) pai[0][i] = i;
-	p = 0, memset(in, -1, sizeof in);
+	p = 0; memset(in, -1, sizeof in);
 	dfs(raiz);
 
 	// pd dos pais

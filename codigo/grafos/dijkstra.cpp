@@ -1,37 +1,35 @@
 // dijkstra
 //
-// encontra menor distancia de x
+// Dijkstra
+//
+// encontra menor distancia de a
 // para todos os vertices
 // se ao final do algoritmo d[i] = INF,
 // entao a nao alcanca i
 //
 // O(m log(n))
 
-vector<vector<pii> > g;
-vector<int> dist;
-vector<bool> vis;
+int n;
+vector<vector<int> > g(MAX);
+vector<vector<int> > w(MAX); // peso das arestas
+int d[MAX];
 
 void dijkstra(int x) {
-	for (int i = 1; i <= n; i++) {
-		dist[i] = INF;
-		vis[i] = false;
-	}	
-
-	dist[x] = 0;
-	q.push({0,x});
+	for (int i = 0; i < n; i++) d[i] = INF;
+	d[x] = 0;
+	priority_queue<ii> q;
+	q.push({0, x});
 
 	while (!q.empty()) {
-		int a = q.top().second; q.pop();
+		int u = q.top().s, dist = -q.top().f;
+		q.pop();
+		if (dist > d[u]) continue;
 
-		if (vis[a]) continue;
-		vis[a] = true;
-
-		for (auto u : g[a]) {
-			int b = u.first, w = u.second;
-
-			if (dist[a]+w < dist[b]) {
-				dist[b] = dist[a]+w;
-				q.push({-dist[b],b}); // distancia negativa para queue
+		for (int i = 0; i < (int) g[u].size(); i++) {
+			int v = g[u][i];
+			if (d[v] > d[u] + w[u][i]) {
+				d[v] = d[u] + w[u][i];
+				q.push({-d[v], v});
 			}
 		}
 	}

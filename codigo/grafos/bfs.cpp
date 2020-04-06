@@ -3,22 +3,20 @@
 
 // Complexidade: O(v+e)
 
-queue<int> q;
-bool vis[N];
-int dist[N];
+
+int d[MAX];
 
 void bfs(int x) {
-	vis[x] = true;
-	dist[x] = 0;
+	queue<int> q;
+	memset(d, -1, sizeof d);	
+	d[x] = 0;
 	q.push(x);
 	
 	while (!q.empty()) {
 		int s = q.front(); q.pop();
-		// process node s
 		for (auto u : g[s]) {
-			if (vis[u]) continue;
-			vis[u] = true;
-			dist[u] = dist[s]+1;
+			if (d[x] != -1) continue;
+			d[u] = d[s]+1;
 			q.push(u);
 		}
 	}

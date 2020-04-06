@@ -4,9 +4,7 @@
 // Complexidade: O(v+e)
 
 void dfs(int s) {
-	if (vis[s]) return;
-	vis[s] = true;
-	for (auto u: adj[s]) {
-		dfs(u);
-	}
+	if (v[s]) return;
+	v[s] = true;
+	for (auto u: adj[s]) dfs(u);
 }
