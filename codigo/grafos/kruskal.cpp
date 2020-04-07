@@ -9,7 +9,7 @@
 
 int n; // n de vertices
 
-vector<pair<int, pii> > > ar;
+vector<pair<int,ii> > > ar;
 vector<int> par;
 vector<int> sz;
 
@@ -27,12 +27,10 @@ int kruskal() {
 
 	for(auto x : ar) {
 		int u = ar.ss.ff, v = ar.ss.ss;
-
 		if(find(u) != find(v)) {
 			w += x.ff;
 			une(u,v);
 		}
 	}
-
 	return w;
 }
