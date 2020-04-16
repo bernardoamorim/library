@@ -1,4 +1,6 @@
-// Totiente
+// Euler Totient Function
+//
+// Finds |{m \in N, m <= n ^ gdc(n,m) = 1}|
 //
 // O(sqrt(n))
 

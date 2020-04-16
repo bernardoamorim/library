@@ -1,12 +1,12 @@
-// Teorema Chines do Resto
+// Chinese remainder theorem
 //
-// Combina equacoes modulares lineares: x = a (mod m)
-// Resposta fica em a
-// O m final eh o lcm dos m's, e a resposta eh unica mod o lcm
-// Os m nao precisam ser coprimos
-// Se nao tiver solucao, o 'a' vai ser -1
+// Combines modular linear equations x = a (mod m)
+// Answer is kept in a
+// The final m is the lcm of the m's and the answer is unique (mod lcm)
+// The m's do not need to be coprimes
+// If there's no solution, 'a' will be -1
 
-ll gcde(ll a, ll b, ll& x, ll& y) {
+ll egcd(ll a, ll b, ll& x, ll& y) {
 	if (!a) {
 		x = 0;
 		y = 1;
@@ -14,7 +14,7 @@ ll gcde(ll a, ll b, ll& x, ll& y) {
 	}
 
 	ll X, Y;
-	ll g = gcde(b % a, a, X, Y);
+	ll g = egcd(b % a, a, X, Y);
 	x = Y - (b / a) * X;
 	y = X;
 
@@ -28,7 +28,7 @@ struct crt {
 	crt(ll a_, ll m_) : a(a_), m(m_) {}
 	crt operator * (crt C) {
 		ll x, y;
-		ll g = gcde(m, C.m, x, y);
+		ll g = egcd(m, C.m, x, y);
 		if ((a - C.a) % g) a = -1;
 		if (a == -1 or C.a == -1) return crt(-1, 0);
 		ll lcm = m/g*C.m;

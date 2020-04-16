@@ -1,7 +1,7 @@
-// Inverso Modular
+// Modular inverse
 //
-// Computa o inverso de a modulo b
-// Se b eh primo, basta fazer
+// Computes the inverse of a modulo b
+// If b is prime, you can simply do:
 // a^(b-2)
 
 ll inv(ll a, ll b){

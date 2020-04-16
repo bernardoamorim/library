@@ -1,18 +1,16 @@
-// Variacoes do crivo de Eratosthenes
+// Eratosthenes Seive variations
 
-// "O" crivo
+// Finds the greatest prime divisor
+// A number is prime iff div[x] == x
+// fact factorates a number <= lim
+// The factoration is ordered
 //
-// Encontra maior divisor primo
-// Um numero eh primo sse div[x] == x
-// fact fatora um numero <= lim
-// A fatoracao sai ordenada
-//
-// crivo - O(n log(log(n)))
+// seive - O(n log(log(n)))
 // fact - O(log(n))
 
 int divi[MAX];
 
-void crivo(int lim) {
+void seive(int lim) {
 	for (int i = 1; i <= lim; i++) divi[i] = 1;
 
 	for (int i = 2; i <= lim; i++) if (divi[i] == 1)
@@ -24,10 +22,10 @@ void fact(vector<int>& v, int n) {
 	v.push_back(divi[n]);
 }
 
-// Crivo de divisores
+// Sieve of divisors
 //
-// Encontra numero de divisores
-// ou soma dos divisores
+// Finds the number of divisors
+// or its summation
 //
 // O(n log(n))
 
@@ -38,17 +36,17 @@ void crivo(int lim) {
 
 	for (int i = 2; i <= lim; i++)
 		for (int j = i; j <= lim; j += i) {
-			// para numero de divisores
+			// for number of divisors
 			divi[j]++;
-			// para soma dos divisores
+			// for summation of divisors
 			divi[j] += i;
 		}
 }
 
-// Crivo de totiente
+// Totient Sieve
 //
-// Encontra o valor da funcao
-// totiente de Euler
+// Finds the value of the 
+// Euler's totient function
 //
 // O(n log(log(n)))
 

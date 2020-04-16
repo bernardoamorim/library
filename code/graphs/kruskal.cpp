@@ -26,9 +26,9 @@ int kruskal() {
 	sort(ar.begin(), ar.end());
 
 	for(auto x : ar) {
-		int u = ar.ss.ff, v = ar.ss.ss;
+		int u = ar.s.f, v = ar.s.s;
 		if(find(u) != find(v)) {
-			w += x.ff;
+			w += x.f;
 			une(u,v);
 		}
 	}
