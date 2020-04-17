@@ -24,7 +24,7 @@ ll fexp(ll x, ll y, ll m) { // recursive
 
 // Matrix fast exponenciation 
 
-// (x^y) (mod m) in O(log(y)*(M.sz())^3)
+// (x^y) (mod m) in O(log(y)*(x.size())^3)
 
 typedef vector<vector<ll> > mat;
 
