@@ -1,17 +1,17 @@
-// dijkstra
-//
 // Dijkstra
 //
-// encontra menor distancia de a
-// para todos os vertices
-// se ao final do algoritmo d[i] = INF,
-// entao a nao alcanca i
+// Finds the smaller distance from x to any vertice
+// in a directed graph
+// If you need the distance from any vertice to x,
+// reverse the edges
+// if at the end d[i] = INF,
+// so x doesn'r reach i
 //
-// O(m log(n))
+// Time complexity: O(m log(n))
 
 int n;
 vector<vector<int> > g(MAX);
-vector<vector<int> > w(MAX); // peso das arestas
+vector<vector<int> > w(MAX); // weigh
 int d[MAX];
 
 void dijkstra(int x) {

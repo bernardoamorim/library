@@ -1,14 +1,12 @@
 // DSU
+//
+// Unites sets and finds its class
+//
+// Time complexity: O(a(n)) ~= O(1)
 
-// Une conjuntos e acha sua classe
+int n; // n elements
 
-// Complexidades:
-// O(a(n)) == O(pouquinho)
-
-int n; // n elementos
-
-vector<int> par;
-vector<int> sz;
+int par[n], sz[n];
 
 void build() {
 	for(int i=0; i<n; i++) {
@@ -22,7 +20,7 @@ int find(int v) {
 	else return par[v] = find(par[v]);
 }
 
-void une(int a, int b) {
+void unite(int a, int b) {
 	a = find(a);
 	b = find(b);
 

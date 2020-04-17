@@ -1,14 +1,15 @@
 // BFS
-// Acha distância até os pontos e os componentes conexos
+// Finds the distances and the connected componets
 
-// Complexidade: O(v+e)
-
+// Time complexity: O(v+e)
 
 int d[MAX];
+vector<vector<int> > g;
 
 void bfs(int x) {
 	queue<int> q;
-	memset(d, -1, sizeof d);	
+	memset(d, -1, sizeof d);
+	
 	d[x] = 0;
 	q.push(x);
 	

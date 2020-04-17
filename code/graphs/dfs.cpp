@@ -1,10 +1,18 @@
 // DFS
-// Encontra componentes conexos
+// Finds connected components and the parents in a tree
 
-// Complexidade: O(v+e)
+// Time complexity: O(v+e)
+
+vector<vector<int> > g;
+vector<int> par;
+vector<int> v;
 
 void dfs(int s) {
-	if (v[s]) return;
 	v[s] = true;
-	for (auto u: adj[s]) dfs(u);
+	for (auto u: adj[s]) {
+		if(!v[u]) {
+			dfs(u);
+			par[u] = x; //if needs parent		
+		}	
+	}
 }

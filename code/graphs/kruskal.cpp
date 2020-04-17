@@ -1,21 +1,21 @@
 // Kruskal
+//
+// Generates MST from the edges vector ed
+// and returns its total weigh w
+//
+// Uses DSU
 
-// Gera AGM a partir do vetor de arestas ar
-// e retorna seu peso w
+// Time complexity: O(m log(n))
 
-// Usa DSU
+int n; // n of nodees
 
-// Complexidade O(m log(n))
-
-int n; // n de vertices
-
-vector<pair<int,ii> > > ar;
+vector<pair<int,ii> > > edg;
 vector<int> par;
 vector<int> sz;
 
 void build();	
 int find(int v);
-void une(int a, int b);
+void unite(int a, int b);
 
 int kruskal() {
 	
@@ -23,13 +23,13 @@ int kruskal() {
 
 	build();
 
-	sort(ar.begin(), ar.end());
+	sort(edg.begin(), edg.end());
 
-	for(auto x : ar) {
-		int u = ar.s.f, v = ar.s.s;
+	for(auto x : edg) {
+		int u = edg.s.f, v = edg.s.s;
 		if(find(u) != find(v)) {
 			w += x.f;
-			une(u,v);
+			unite(u,v);
 		}
 	}
 	return w;
