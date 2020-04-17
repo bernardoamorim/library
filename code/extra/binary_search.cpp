@@ -1,6 +1,6 @@
-// Busca Binária
+// Binary search
 
-// complexidade O(log n);
+// Time complexity O(log n);
 
 int l=0, r=n-1;
 

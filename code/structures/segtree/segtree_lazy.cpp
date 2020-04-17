@@ -1,74 +1,79 @@
-// segtree de soma sem lazy
+// SegTree
+//
+// Recursive with Lazy Propagation
+// Query: sum of range [a, b]
+// Update: adds x in all elements in range [a, b]
+//
+// Time complexities:
+// build - O(n)
+// query - O(log(n))
+// update - O(log(n))
 
-// vetor inicial A
+namespace seg {
+	ll seg[4*MAX], lazy[4*MAX];
+	int n, *v;
 
-// update: adiciona val ao range [l,r]
-// query: soma do range [l,r]
+	ll build(int p=1, int l=0, int r=n-1) {
+		lazy[p] = 0;
+		if (l == r) return seg[p] = v[l];
+		int m = (l+r)/2;
+		return seg[p] = build(2*p, l, m) + build(2*p+1, m+1, r);
+	}
+	void build(int n2, int* v2) {
+		n = n2, v = v2;
+		build();
+	}
+	void prop(int p, int l, int r) {
+		if (!lazy[p]) return;
+		int m = (l+r)/2;
+		seg[2*p] += lazy[p]*(m-l+1);
+		seg[2*p+1] += lazy[p]*(r-(m+1)+1);
+		lazy[2*p] += lazy[p], lazy[2*p+1] += lazy[p];
+		lazy[p] = 0;
+	}
+	ll query(int a, int b, int p=1, int l=0, int r=n-1) {
+		if (b < l or r < a) return 0;
+		if (a <= l and r <= b) return seg[p];
+		prop(p, l, r);
+		int m = (l+r)/2;
+		return query(a, b, 2*p, l, m) + query(a, b, 2*p+1, m+1, r);
+	}
+	ll update(int a, int b, int x, int p=1, int l=0, int r=n-1) {
+		if (b < l or r < a) return seg[p];
+		if (a <= l and r <= b) {
+			seg[p] += (ll)x*(r-l+1);
+			lazy[p] += x;
+			return seg[p];
+		}
+		prop(p, l, r);
+		int m = (l+r)/2;
+		return seg[p] = update(a, b, x, 2*p, l, m) +
+			update(a, b, x, 2*p+1, m+1, r);
+	}
+};
 
-// complexidades:
-// build O(n)
-// query O(logn)
-// update O(logn)
+// If you have a max seg, you can find out in O(log(n))
+// the first and the smallest element >= val in a range:
+//
+// first position >=val in [a,b] (or -1 if it doesn't have one)
 
-void build(ll node, ll start, ll end) {
-    if(start == end) tree[node] = A[start];
-    else {
-        ll mid = (start + end) / 2;
-        
-        build(2*node, start, mid);
-        build(2*node+1, mid+1, end);
 
-        tree[node] = tree[2*node] + tree[2*node+1];
-    }
+int get_left(int a, int b, int val, int p=1, int l=0, int r=n-1) {
+	if (b < l or r < a or seg[p] < val) return -1;
+	if (r == l) return l;
+	int m = (l+r)/2;
+	int x = get_left(a, b, val, 2*p, l, m);
+	if (x != -1) return x;
+	return get_left(a, b, val, 2*p+1, m+1, r);
 }
 
-void update_range(int node, int start, int end, int l, int r, int val) {
-    if(lazy[node] != 0) { 
-        tree[node] += (end - start + 1) * lazy[node];    
-        if(start != end) {
-            lazy[node*2] += lazy[node];                  
-            lazy[node*2+1] += lazy[node];              
-        }
-        lazy[node] = 0;                                  
-    }
-    if(start > end or start > r or end < l) return;
+// last position >= val in [a, b] (or -1 if it doesn't have one)
 
-    if(start >= l and end <= r) {
-        
-        tree[node] += (end - start + 1) * val;
-        if(start != end) {
-   
-            lazy[node*2] += val;
-            lazy[node*2+1] += val;
-        }
-        return;
-    }
-
-    int mid = (start + end) / 2;
-    update_range(node*2, start, mid, l, r, val);      
-    update_range(node*2 + 1, mid + 1, end, l, r, val);  
-    tree[node] = tree[node*2] + tree[node*2+1];        
-}
-
-
-ll query_range(ll node, ll start, ll end, ll l, ll r) {
-    if(start > end or start > r or end < l) return 0;
-       
-    if(lazy[node] != 0) {
-
-        tree[node] += (end - start + 1) * lazy[node];       
-        if(start != end) {
-            lazy[node*2] += lazy[node];        
-            lazy[node*2+1] += lazy[node];
-        }
-        lazy[node] = 0;                
-    }
-
-    if(start >= l and end <= r) return tree[node];
-
-    ll mid = (start + end) / 2;
-    ll p1 = query_range(node*2, start, mid, l, r);        
-    ll p2 = query_range(node*2 + 1, mid + 1, end, l, r); 
-
-    return (p1 + p2);
+int get_right(int a, int b, int val, int p=1, int l=0, int r=n-1) {
+	if (b < l or r < a or seg[p] < val) return -1;
+	if (r == l) return l;
+	int m = (l+r)/2;
+	int x = get_right(a, b, val, 2*p+1, m+1, r);
+	if (x != -1) return x;
+	return get_right(a, b, val, 2*p, l, m);
 }

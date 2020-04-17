@@ -1,40 +1,40 @@
-// LCA com binary lifting
+// LCA with binary lifting
 //
-// Assume que um vertice eh ancestral dele mesmo, ou seja,
-// se a eh ancestral de b, lca(a, b) = a
+// Assumes a vertice is its own acestor
+// thus if a is ancestor of b, lca(a,b) = a
 // MAX2 = ceil(log(MAX))
 //
-// Complexidades:
+// Time complexities:
 // build - O(n log(n))
 // lca - O(log(n))
 
 vector<vector<int> > g(MAX);
 int n, p;
-int pai[MAX2][MAX];
+int par[MAX2][MAX];
 int in[MAX], out[MAX];
 
 void dfs(int k) {
 	in[k] = p++;
 	for (auto u : g[k]) {
 		if (in[u] == -1) {
-			pai[0][u] = k;
+			par[0][u] = k;
 			dfs(u);
 		}
 	}
 	out[k] = p++;
 }
 
-void build(int raiz) {
-	for (int i = 0; i < n; i++) pai[0][i] = i;
+void build(int root) {
+	for (int i = 0; i < n; i++) par[0][i] = i;
 	p = 0; memset(in, -1, sizeof in);
-	dfs(raiz);
+	dfs(root);
 
-	// pd dos pais
+	// parents dp
 	for (int k = 1; k < MAX2; k++) for (int i = 0; i < n; i++)
-		pai[k][i] = pai[k - 1][pai[k - 1][i]];
+		par[k][i] = par[k - 1][par[k - 1][i]];
 }
 
-bool anc(int a, int b) { // se a eh ancestral de b
+bool anc(int a, int b) { // if a is ancestor of b
 	return in[a] <= in[b] and out[a] >= out[b];
 }
 
@@ -42,9 +42,9 @@ int lca(int a, int b) {
 	if (anc(a, b)) return a;
 	if (anc(b, a)) return b;
 
-	// sobe a
+	// lifts a
 	for (int k = MAX2 - 1; k >= 0; k--)
-		if (!anc(pai[k][a], b)) a = pai[k][a];
+		if (!anc(par[k][a], b)) a = par[k][a];
 
-	return pai[0][a];
+	return par[0][a];
 }
