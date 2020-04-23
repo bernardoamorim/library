@@ -16,7 +16,7 @@ void bfs(int x) {
 	while (!q.empty()) {
 		int s = q.front(); q.pop();
 		for (auto u : g[s]) {
-			if (d[x] != -1) continue;
+			if (d[u] != -1) continue;
 			d[u] = d[s]+1;
 			q.push(u);
 		}

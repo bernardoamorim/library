@@ -7,6 +7,7 @@ using namespace std;
 #define f first
 #define s second
 #define pb push_back
+#define sz(a) int((a).size())
 
 typedef long long ll;
 typedef pair<int, int> ii;
@@ -15,5 +16,7 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
 int main(){ _
+
+
 	exit(0);
 }
