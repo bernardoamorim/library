@@ -31,7 +31,7 @@ void fact(vector<int>& v, int n) {
 
 int divi[MAX];
 
-void crivo(int lim) {
+void sieve(int lim) {
 	for (int i = 1; i <= lim; i++) divi[i] = 1;
 
 	for (int i = 2; i <= lim; i++)
@@ -52,7 +52,7 @@ void crivo(int lim) {
 
 int tot[MAX];
 
-void crivo(int lim) {
+void sieve(int lim) {
 	for (int i = 1; i <= lim; i++) tot[i] = i;
 
 	for (int i = 2; i <= lim; i++) if (tot[i] == i)

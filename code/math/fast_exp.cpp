@@ -5,13 +5,13 @@
 typedef long long ll;
 
 ll fexp(ll x, ll y, ll m) { // iterative
-	ll ret = 1;
+	ll r = 1;
 	while (y) {
-		if (y & 1) ret = (ret * x) % m;
+		if (y & 1) r = (r*x) % m;
 		y >>= 1;
-		x = (x * x) % m;
+		x = (x*x) % m;
 	}
-	return ret;
+	return r;
 }
 
 ll fexp(ll x, ll y, ll m) { // recursive
