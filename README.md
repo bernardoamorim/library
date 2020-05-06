@@ -1,1 +1,1 @@
-# maratona_git
+# Competitive Programming Library
