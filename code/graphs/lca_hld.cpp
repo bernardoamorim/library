@@ -1,4 +1,4 @@
-// LCA with HLD
+// Lowest Common Ancertor with Heavy-Light Decomposition
 //
 // Assumes a vertice is it's own ancestor,
 // To build just call build(root)
@@ -14,37 +14,34 @@
 // Verification: https://www.spoj.com/problems/LCA/
 
 namespace hld {
-	vector<int> w(MAX), idx(MAX), par(MAX), h(MAX);
-	int t;
+	int t, sz[MAX], pos[MAX], par[MAX], h[MAX];
 
-	void dfs1(int v) {
-		w[v] = 1;
-		for(auto& u : g[v]) if(!w[u]) {
+	void dfs1(int v, int p=-1) {
+		sz[v] = 1;
+		for(auto& u : g[v]) if(u != p) {
 			par[u] = v;
 			dfs1(u);
-			w[v] += w[u];
-			if(w[u] > w[g[v][0]]) swap(u, g[v][0]);
+			sz[v] += sz[u];
+			if(sz[u] > sz[g[v][0]] or g[v][0] == p) swap(u, g[v][0]);
 		}
 	}
-	void dfs2(int v) {	
-		idx[v] = t;
-		for(auto u : g[v]) if(!idx[u]) { 
+	void dfs2(int v, int p=-1) {	
+		pos[v] = t++;
+		for(auto u : g[v]) if(u != p) { 
 			h[u] = (u == g[v][0] ? h[v] : u);
-			++t; dfs2(u);
+			dfs2(u);
 		}
 	}
 
-	void build(int root) {
-		for(int i=0; i<n; i++) 
-			par[i] = h[i] = idx[i] = w[i] = 0;
+	void build(int root=0) {
 		par[root] = h[root] = root;
+		t = 0;
 		dfs1(root);
-		t=1;
 		dfs2(root);
 	}
 
 	int lca(int a, int b) {
-		if(idx[a] < idx[b]) swap(a,b);
+		if(pos[a] < pos[b]) swap(a,b);
 		return h[a] == h[b] ? b : lca(par[h[a]],b);
 	}
 }

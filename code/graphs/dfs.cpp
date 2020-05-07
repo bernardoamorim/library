@@ -9,10 +9,8 @@ vector<int> v;
 
 void dfs(int s) {
 	v[s] = true;
-	for (auto u: adj[s]) {
-		if(!v[u]) {
-			dfs(u);
-			par[u] = x; //if needs parent		
-		}	
+	for (auto u: adj[s]) if(!v[u]) {
+		dfs(u);
+		par[u] = x; //if needs parent
 	}
 }
