@@ -7,7 +7,6 @@ using namespace std;
 #define f first
 #define s second
 #define pb push_back
-#define sz(a) int((a).size())
 #define dbg(x) cout << #x << " = " << x << endl
 
 typedef long long ll;

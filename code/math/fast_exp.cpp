@@ -24,45 +24,39 @@ ll fexp(ll x, ll y, ll m) { // recursive
 
 // Matrix fast exponenciation 
 
-// (x^y) (mod m) in O(log(y)*(x.size())^3)
+// (x^y) (mod m) in O(log(y)*(x.size()))^3)
 
-typedef vector<vector<ll> > mat;
+typedef vector<vector<ll>> mat;
 
-mat idty(int a) {
-	mat id(a, vector<ll>(a,0));
-	for(int i=0; i < a; i++) {	
+mat id(int a) {
+	mat ret(a, vector<ll>(a,0));
+	for(int i=0; i < a; i++)
 		for(int j=0; j < a; j++) 
-			if(i == j) id[i][j] = 1;
-	}
-	return id;
+			if(i == j) ret[i][j] = 1;
+	
+	return ret;
 }
 
-mat mmul(mat x, mat y, ll m) {
-	int a = (int) x.size();
-	int b = (int) y[0].size();
-	int c = (int) x[0].size();	
+mat mmul(mat& x, mat& y, ll m) {
+	int a = x.size(), b = y[0].size(), c = x[0].size();	
 
 	mat z(a, vector<ll>(b,0));
 	
-	for(int i=0; i < a; i++) {
-		for(int j=0; j < b; j++) {
-			for(int k=0; k < c; k++) {
-				z[i][j] += x[i][k]*y[k][j];
-				z[i][j] %= m;	
-			}	
-		}	
-	}
+	for(int i=0; i < a; i++)
+		for(int j=0; j < b; j++)
+			for(int k=0; k < c; k++)
+				z[i][j] = (z[i][j]+x[i][k]*y[k][j]) % m;
 
 	return z;
 }
 
 mat mfexp(mat x, ll y, ll m) { // iterative
-	int sz = (int) x.size();
+	int sz = x.size();
 	
 	mat z(sz,vector<ll>(sz));
-	z = idty(sz);
+	z = id(sz);
 
-	while (y) {
+	while(y) {
 		if (y & 1) z = mmul(z,x,m);
 		y >>= 1;
 		x = mmul(x,x,m);
@@ -73,10 +67,10 @@ mat mfexp(mat x, ll y, ll m) { // iterative
 
 mat mfexp(mat x, ll y, ll m) { // recursive
 	
-	if (!y) return id((int) x.size());
+	if(!y) return id(x.size());
 
 	mat z = mfexp(mmul(x,x,m), y/2, m);
 	
-	if(y % 2 == 0) return z;
+	if(!(y%2)) return z;
 	else return mmul(x,z,m);
 }
