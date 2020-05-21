@@ -18,11 +18,8 @@ int find(int v);
 void unite(int a, int b);
 
 int kruskal() {
-	
 	int w = 0;
-
 	build();
-
 	sort(edg.begin(), edg.end());
 
 	for(auto x : edg) {

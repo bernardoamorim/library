@@ -21,8 +21,8 @@ void dijkstra(int x) {
 	q.push({0, x});
 
 	while (!q.empty()) {
-		int u = q.top().s, dist = -q.top().f;
-		q.pop();
+		auto [dist,u] = q.top(); dist*=-1; q.pop();
+		
 		if (dist > d[u]) continue;
 
 		for (int i = 0; i < (int) g[u].size(); i++) {
