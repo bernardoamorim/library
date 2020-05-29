@@ -30,14 +30,12 @@ typedef vector<vector<ll>> mat;
 
 mat id(int a) {
 	mat ret(a, vector<ll>(a,0));
-	for(int i=0; i < a; i++)
-		for(int j=0; j < a; j++) 
-			if(i == j) ret[i][j] = 1;
-	
+	for(int i=0; i<a; i++) for(int j=0; j<a; j++) ret[i][i] = 1;	
+
 	return ret;
 }
 
-mat mmul(mat& x, mat& y, ll m) {
+mat mmult(mat& x, mat& y, ll m) {
 	int a = x.size(), b = y[0].size(), c = x[0].size();	
 
 	mat z(a, vector<ll>(b,0));
@@ -50,16 +48,14 @@ mat mmul(mat& x, mat& y, ll m) {
 	return z;
 }
 
-mat mfexp(mat x, ll y, ll m) { // iterative
-	int sz = x.size();
-	
-	mat z(sz,vector<ll>(sz));
-	z = id(sz);
+mat mfexp(mat &x, ll y, ll m) { // iterative
+	mat z(x.size(),vector<ll>(x.size()));
+	z = id(x.size());
 
 	while(y) {
-		if (y & 1) z = mmul(z,x,m);
+		if (y&1) z = mmult(z,x,m);
 		y >>= 1;
-		x = mmul(x,x,m);
+		x = mmult(x,x,m);
 	}
 
 	return z;
@@ -69,8 +65,8 @@ mat mfexp(mat x, ll y, ll m) { // recursive
 	
 	if(!y) return id(x.size());
 
-	mat z = mfexp(mmul(x,x,m), y/2, m);
+	mat z = mfexp(mmult(x,x,m), y/2, m);
 	
 	if(!(y%2)) return z;
-	else return mmul(x,z,m);
+	else return mmult(x,z,m);
 }
