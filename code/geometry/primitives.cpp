@@ -76,6 +76,7 @@ ld sarea(pt p, pt q, pt r) {
 bool col(pt p, pt q, pt r) { return eq(sarea(p, q, r), 0); }
 
 // if u and v are parallel 
+// returns 1 if in same direction and -1 if in different directions
 int paral(pt u, pt v) { 
 	if (!eq(u^v, 0)) return 0;
 	if ((u.x > eps) == (v.x > eps) and (u.y > eps) == (v.y > eps))
@@ -121,7 +122,7 @@ bool isinseg(pt p, line r) {
 	return paral(p - r.p, p - r.q) == -1;
 }
 
-// to be discovered {retorna t tal que t*v pertence a reta r} ?
+// returns scallar t such that t*v belongs to the line r
 ld get_t(pt v, line r) { return (r.p^r.q) / ((r.p-r.q)^v); }
 
 // projects the point p in the line r
