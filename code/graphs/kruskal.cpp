@@ -13,9 +13,24 @@ vector<pair<int,ii> > > edg;
 vector<int> par;
 vector<int> sz;
 
-void build();	
-int find(int v);
-void unite(int a, int b);
+void build(){
+	for(int i=1;i<=n;++i){
+	   par[i]=i; 
+	   sz[i]=1;
+	}
+}	
+int find(int v){
+	if(x==par[x])
+    return x;
+    else
+    return sz[x]=find(par[x]);
+}
+void unite(int a, int b){
+	a=find(a); b=find(b);
+    if(sz[a]<sz[b]) swap(a,b);
+    par[b]=a;
+    sz[a]+=sz[b];
+}
 
 int kruskal() {
 	int w = 0;
