@@ -22,13 +22,13 @@ pair<int,vector<int>> kosaraju(int n) {
         vis[v] = 1, comp[v] = c;
         for(int u : gt[v]) if(!vis[u]) dfst(u,c);
     };
- 
-	fill(vis.begin(), vis.end(),0);
+
+    fill(vis.begin(), vis.end(),0);
     for(int i=0; i<n; i++) if(!vis[i]) dfs(i);
     
     int ncomps = 0;
-	fill(vis.begin(),vis.end(),0);
-	for(int u : to_look) if(!vis[u])
+    fill(vis.begin(),vis.end(),0);
+    for(int u : to_look) if(!vis[u])
 		dfst(u,u), ncomps++;
  
     return {ncomps, comp};
