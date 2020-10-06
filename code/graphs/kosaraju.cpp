@@ -9,21 +9,20 @@ vector<int> g[MAX], gt[MAX]; // graph, transposed graph
  
 pair<int,vector<int>> kosaraju(int n) {
 
-    static vector<int> vis(n), comp(n), to_look(n);
+    vector<int> vis(n), comp(n), to_look(n);
 	int it = n-1;
  
-    function<void(int)> dfs = [&dfs,&it] (int v) {
+    function<void(int)> dfs = [&dfs,&vis,&to_look,&it] (int v) {
         vis[v] = 1;
         for(int u : g[v]) if(!vis[u]) dfs(u);
         to_look[it--] = v;
     };
  
-    function<void(int,int)> dfst = [&dfst] (int v, int c) {
+    function<void(int,int)> dfst = [&dfst,&vis,&comp] (int v, int c) {
         vis[v] = 1, comp[v] = c;
         for(int u : gt[v]) if(!vis[u]) dfst(u,c);
     };
 
-    fill(vis.begin(), vis.end(),0);
     for(int i=0; i<n; i++) if(!vis[i]) dfs(i);
     
     int ncomps = 0;
