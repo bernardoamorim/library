@@ -14,7 +14,7 @@ vector<int> topo_sort(int n) {
 	bool dag = true;
 	function<void(int)> dfs = [&vis,&ret,&dag,&pos,&dfs] (int v) {
 		vis[v] = 1;
-		for(auto u : g[v]) {
+		for(int u : g[v]) {
 			if(vis[u] == 1) dag = false;
 			else if(!vis[u]) dfs(u);
 		}

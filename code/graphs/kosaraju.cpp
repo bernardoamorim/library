@@ -14,13 +14,13 @@ pair<int,vector<int>> kosaraju(int n) {
  
     function<void(int)> dfs = [&dfs,&it] (int v) {
         vis[v] = 1;
-        for(auto u : g[v]) if(!vis[u]) dfs(u);
+        for(int u : g[v]) if(!vis[u]) dfs(u);
         to_look[it--] = v;
     };
  
     function<void(int,int)> dfst = [&dfst] (int v, int c) {
         vis[v] = 1, comp[v] = c;
-        for(auto u : gt[v]) if(!vis[u]) dfst(u,c);
+        for(int u : gt[v]) if(!vis[u]) dfst(u,c);
     };
  
  	fill(vis.begin(), vis.end(),0);
@@ -28,7 +28,7 @@ pair<int,vector<int>> kosaraju(int n) {
     
     int ncomps = 0;
     fill(vis.begin(),vis.end(),0);
-	for(auto u : to_look) if(!vis[u])
+	for(int u : to_look) if(!vis[u])
 		dfst(u,u), ncomps++;
  
     return {ncomps, comp};
