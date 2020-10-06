@@ -8,13 +8,14 @@
 vector<int> g[MAX];
 
 vector<int> topo_sort(int n) {
-	vector<int> ret(n,-1), vis(n,0);
+	vector<int> ret(n), vis(n);
 	
-	int pos = n-1, dag = 1;
-	function<void(int)> dfs = [&] (int v) {
+	int pos = n-1;
+	bool dag = true;
+	function<void(int)> dfs = [&vis,&ret,&dag,&pos,&dfs] (int v) {
 		vis[v] = 1;
 		for(auto u : g[v]) {
-			if(vis[u] == 1) dag = 0;
+			if(vis[u] == 1) dag = false;
 			else if(!vis[u]) dfs(u);
 		}
 		ret[pos--] = v, vis[v] = 2;
