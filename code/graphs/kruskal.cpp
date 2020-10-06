@@ -1,7 +1,6 @@
 // Kruskal
 //
 // Generates and retuns an MST and its cost from the edges vector
-// do grafo
 //
 // O(m log(m) + m a(m))
 
