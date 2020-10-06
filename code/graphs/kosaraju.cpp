@@ -6,30 +6,30 @@
 // O(n + m)
  
 vector<int> g[MAX], gt[MAX]; // graph, transposed graph
-int vis[MAX], comp[MAX];
  
-int kosaraju(int n) {
+pair<int,vector<int>> kosaraju(int n) {
+
+    static vector<int> vis(n), comp(n), to_look(n);
+	int it = n-1;
  
-    vector<int> st;
-    function<void(int)> dfs = [&] (int v) {
+    function<void(int)> dfs = [&dfs,&it] (int v) {
         vis[v] = 1;
         for(auto u : g[v]) if(!vis[u]) dfs(u);
-        st.push_back(v);
+        to_look[it--] = v;
     };
  
-    function<void(int,int)> dfst = [&] (int v, int c) {
+    function<void(int,int)> dfst = [&dfst] (int v, int c) {
         vis[v] = 1, comp[v] = c;
         for(auto u : gt[v]) if(!vis[u]) dfst(u,c);
     };
  
-    fill(vis,vis+n,0);
+ 	fill(vis.begin(), vis.end(),0);
     for(int i=0; i<n; i++) if(!vis[i]) dfs(i);
     
-    fill(vis,vis+n,0);
     int ncomps = 0;
-    while(st.size()) {
-        int u = st.top(); st.pop();
-        if(!vis[u]) dfst(u,u), ncomps++;
-    }
-    return ncomps;
+    fill(vis.begin(),vis.end(),0);
+	for(auto u : to_look) if(!vis[u])
+		dfst(u,u), ncomps++;
+ 
+    return {ncomps, comp};
 }
