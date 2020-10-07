@@ -7,7 +7,7 @@
 
 struct dinic { 
 	struct edge {
-		// idx is even if original aand odd if residual
+		// idx is even if original and odd if residual
 		int to, idx, cap;
 		edge (int to_, int idx_, int cap_) : 
 			to(to_), idx(idx_), cap(cap_) {}
@@ -26,27 +26,21 @@ struct dinic {
 		edg_flow.push_back(cap);
 	}
 
-	void push_flow(int idx, int flow) {
-		edg_flow[idx] += flow;
-		edg_flow[idx^1] -= flow;
-	}
-
 	int max_flow(int s, int t) {
-
 		function<int(int,int)> dfs = [&] (int v, int flow_aug) {
-			if(v == t) return flow_aug;
+			if(v == t or flow_aug == 0) return flow_aug;
 			int res = 0;
 			for(int& i = iter[v]; i < g[v].size(); i++) {
-				edge next = g[v][i];
-				int left = next.cap - edg_flow[next.idx], pushed = 0;
-				if(level[next.to] == level[v] + 1 and left)
-					pushed = dfs(next.to, min(flow_aug-res, left));	
+				edge e = g[v][i];
+				int left = e.cap - edg_flow[e.idx], pushed = 0;
+				if(level[e.to] == level[v] + 1 and left)
+					pushed = dfs(e.to, min(flow_aug-res, left));	
 				res += pushed;
-				push_flow(next.idx, pushed);
+				edg_flow[e.idx] += pushed;
+				edg_flow[e.idx^1] -= pushed;
 			}
 			return res;
 		};
-
 		auto bfs = [&] () {
 			fill(level.begin(), level.end(), -1);
 			queue<int> q;
@@ -75,3 +69,4 @@ struct dinic {
 		return max_flow;		
 	}
 };
+
