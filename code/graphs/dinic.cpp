@@ -27,6 +27,7 @@ struct dinic {
 	}
 
 	int max_flow(int s, int t) {
+
 		function<int(int,int)> dfs = [&] (int v, int flow_aug) {
 			if(v == t or flow_aug == 0) return flow_aug;
 			int res = 0;
@@ -41,6 +42,7 @@ struct dinic {
 			}
 			return res;
 		};
+
 		auto bfs = [&] () {
 			fill(level.begin(), level.end(), -1);
 			queue<int> q;
