@@ -3,7 +3,7 @@
 // Computes the maximum flow from s to t (do not call more than once)
 //
 // O(min(m * max_flow, n^2 m))
-// Grafo com capacidades 1 -> O(sqrt(n)*m)
+// Graph with capacities 1 -> O(sqrt(n)*m)
 
 struct dinic { 
 	struct edge {
