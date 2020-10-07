@@ -30,17 +30,19 @@ struct dinic {
 
 		function<int(int,int)> dfs = [&] (int v, int flow_aug) {
 			if(v == t or flow_aug == 0) return flow_aug;
-			int res = 0;
 			for(int& i = iter[v]; i < g[v].size(); i++) {
 				edge e = g[v][i];
 				int left = e.cap - edg_flow[e.idx], pushed = 0;
 				if(level[e.to] == level[v] + 1 and left)
-					pushed = dfs(e.to, min(flow_aug-res, left));	
-				res += pushed;
-				edg_flow[e.idx] += pushed;
-				edg_flow[e.idx^1] -= pushed;
+					pushed = dfs(e.to, min(flow_aug, left));
+				
+				if(pushed > 0) {
+					edg_flow[e.idx] += pushed;
+					edg_flow[e.idx^1] -= pushed;
+					return pushed;
+				}
 			}
-			return res;
+			return 0;
 		};
 
 		auto bfs = [&] () {
@@ -71,4 +73,3 @@ struct dinic {
 		return max_flow;		
 	}
 };
-
