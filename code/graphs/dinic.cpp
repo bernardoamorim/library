@@ -7,8 +7,7 @@
 
 struct dinic { 
 	struct edge {
-		// idx is even if original and odd if residual
-		int to, idx, cap;
+		int to, idx, cap; // idx is even if original and odd if residual
 		edge (int to_, int idx_, int cap_) : 
 			to(to_), idx(idx_), cap(cap_) {}
 	};
@@ -64,11 +63,7 @@ struct dinic {
 		int max_flow = 0;
 		while(bfs()) {
 			fill(iter.begin(), iter.end(), 0);
-			while(true) {
-				int aug = dfs(s,INF);
-				if(aug == 0) break;
-				max_flow += aug;
-			}
+			while(int aug = dfs(s,INF)) max_flow += aug;
 		}
 		return max_flow;		
 	}
