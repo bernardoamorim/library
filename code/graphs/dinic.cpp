@@ -60,13 +60,11 @@ struct dinic {
 					q.push(e.to);
 				}
 			}
+			return level[t] != -1;
 		};
 
 		int max_flow = 0;
-		while(true) {
-			bfs();
-			if(level[t] == -1) break;
-
+		while(bfs()) {
 			fill(iter.begin(), iter.end(), 0);
 			while(true) {
 				int aug = dfs(s,INF);
