@@ -28,7 +28,7 @@ struct dinic {
 	int max_flow(int s, int t) {
 
 		function<int(int,int)> dfs = [&] (int v, int flow_aug) {
-			if(v == t or flow_aug == 0) return flow_aug;
+			if(v == t) return flow_aug;
 			for(int& i = iter[v]; i < g[v].size(); i++) {
 				edge e = g[v][i];
 				int left = e.cap - edg_flow[e.idx], pushed = 0;
