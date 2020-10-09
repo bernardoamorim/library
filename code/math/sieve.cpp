@@ -1,4 +1,20 @@
 // Sieve of Eratosthenes
+
+// Sieve
+//
+// Sieve[i] == true if i is prime
+//
+// build_sieve - O(n log(log(n)))
+
+vector<bool> sieve(MAX,true);
+
+void build_sieve(int lim) {
+	for(ll i=4; i < lim; i += 2) sieve[i] = false;
+	for(ll i=3; i < lim; i += 2) if(sieve[i] == true)
+		for(ll j = i*i; j < lim; j += i) sieve[j] = false;
+}
+
+// Sieve of Divisors
 //
 // Finds the largest prime divisor of a number in [1, lim)
 // A number is prime iff sieve[x] == x
