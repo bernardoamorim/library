@@ -9,7 +9,7 @@
 vector<bool> sieve(MAX,true);
 
 void build_sieve(int lim) {
-	sieve[1] = false;
+	sieve[0] = sieve[1] = false;
 	for(ll i=4; i < lim; i += 2) sieve[i] = false;
 	for(ll i=3; i < lim; i += 2) if(sieve[i] == true)
 		for(ll j = i*i; j < lim; j += i) sieve[j] = false;
