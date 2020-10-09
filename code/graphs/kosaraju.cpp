@@ -12,13 +12,13 @@ pair<int,vector<int>> kosaraju(int n) {
     vector<int> vis(n), comp(n), to_look(n);
 	int it = n-1;
  
-    function<void(int)> dfs = [&dfs,&vis,&to_look,&it] (int v) {
+    function<void(int)> dfs = [&] (int v) {
         vis[v] = 1;
         for(int u : g[v]) if(!vis[u]) dfs(u);
         to_look[it--] = v;
     };
  
-    function<void(int,int)> dfst = [&dfst,&vis,&comp] (int v, int c) {
+    function<void(int,int)> dfst = [&] (int v, int c) {
         vis[v] = 1, comp[v] = c;
         for(int u : gt[v]) if(!vis[u]) dfst(u,c);
     };
