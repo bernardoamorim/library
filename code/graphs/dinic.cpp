@@ -28,9 +28,8 @@ private:
 		return 0;
 	}
 	int bfs(int s, int t) {
-		fill(lvl.begin(), lvl.end(), -1);
+		fill(lvl.begin(), lvl.end(), -1); lvl[s] = 0;
 		queue<int> q; q.push(s);
-		lvl[s] = 0;
 		while(q.size()) {
 			int u = q.front(); q.pop();
 			for(auto e : g[u]) { 
