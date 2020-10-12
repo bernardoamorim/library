@@ -8,14 +8,12 @@
 struct dinic { 
 	struct edge {
 		int to, idx, cap; // idx is even if original and odd if residual
-		edge (int to_, int idx_, int cap_) : 
-			to(to_), idx(idx_), cap(cap_) {}
+		edge (int to_, int idx_, int cap_) : to(to_), idx(idx_), cap(cap_) {}
 	};
 
 	int sz;
 	vector<vector<edge>> g;
 	vector<int> edg_flow, level, iter; 
-
 	dinic (int sz_) : sz(sz_), g(sz_), level(sz_), iter(sz_) {}
 
 	void add_edge(int u, int v, int cap) {
@@ -26,30 +24,23 @@ struct dinic {
 	}
 
 	int max_flow(int s, int t) {
-
 		function<int(int,int)> dfs = [&] (int v, int flow_aug) {
 			if(v == t) return flow_aug;
 			for(int& i = iter[v]; i < g[v].size(); i++) {
 				edge e = g[v][i];
 				int left = e.cap - edg_flow[e.idx], pushed = 0;
-				if(level[e.to] == level[v] + 1 and left)
-					pushed = dfs(e.to, min(flow_aug, left));
-				
-				if(pushed > 0) {
-					edg_flow[e.idx] += pushed;
-					edg_flow[e.idx^1] -= pushed;
-					return pushed;
-				}
+				if(level[e.to] != level[v] + 1 or left == 0) continue;
+				pushed = dfs(e.to, min(flow_aug, left));
+				if(!pushed) continue;
+				edg_flow[e.idx] += pushed, edg_flow[e.idx^1] -= pushed;
+				return pushed;
 			}
 			return 0;
 		};
-
 		auto bfs = [&] () {
 			fill(level.begin(), level.end(), -1);
-			queue<int> q;
+			queue<int> q; q.push(s);
 			level[s] = 0;
-			q.push(s);
-
 			while(q.size()) {
 				int u = q.front(); q.pop();
 				for(auto e : g[u]) if(e.cap - edg_flow[e.idx] > 0 and level[e.to] == -1) {
