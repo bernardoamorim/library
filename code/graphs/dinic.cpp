@@ -1,6 +1,8 @@
 // Dinic
 // 
-// Computes the maximum flow from s to t (do not call more than once)
+// max_flow(s,t) computes maximumm flow from s to t (do not call more than once)
+// min_cut(s,t) returns {max_flow,min_cut}, where in min_cut edges are indexed from
+// the order they are added
 //
 // O(min(m * max_flow, n^2 m))
 // Graph with capacities 1 -> O(sqrt(n)*m)
@@ -8,7 +10,7 @@
 class dinic {
 private:
 	struct edge {
-		int to, id, cap; // id is even if original and odd if residual
+		int to, id, cap; // id % 2 (1 if original, 0 if residual)
 		edge(int to_, int id_, int cap_) : to(to_), id(id_), cap(cap_) {}
 	};
 	vector<vector<edge>> g;
@@ -53,5 +55,18 @@ public:
 			while(int aug = dfs(s,INF,t)) max_flow += aug;
 		}
 		return max_flow;	
+	}
+	pair<int,vector<int>> min_cut(int s, int t) {
+		int maxflow = max_flow(s,t);
+		vector<int> part(g.size(),0), mincut;
+		queue<int> q; q.push(s); part[s] = 1;
+		while(q.size()) {
+			int u = q.front(); q.pop();
+			for(auto e : g[u]) if(!part[e.to] and e.cap > flow[e.id])
+				part[e.to] = 1, q.push(e.to);
+		}
+		for(int u=0; u < g.size(); u++) for(auto e : g[u]) 
+			if(part[u] and !part[e.to] and !(e.id & 1))	mincut.push_back(e.id/2);
+		return {maxflow, mincut};
 	}
 };
