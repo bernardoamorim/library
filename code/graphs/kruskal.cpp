@@ -1,6 +1,7 @@
 // Kruskal
 //
-// Generates and retuns an MST and its cost from the edges vector
+// Generates and retuns a MST (minimum spanning tree)
+//  and its cost from the edges vector
 //
 // O(m log(m) + m a(m))
 
@@ -8,21 +9,18 @@ typedef tuple<int,int,int> t3;
 
 vector<t3> edg; // {weight,[x,y]}
 
-// DSU in O(a(n))
-void dsu_build();
-int find(int a);
-void unite(int a, int b);
+// struct dsu()
 
 pair<ll,vector<t3>> kruskal(int n) {
-	dsu_build(n);
+	dsu comps(n);
 	sort(edg.begin(), edg.end());
 	
 	ll cost = 0;
 	vector<t3> mst;
-	for(auto [w,x,y] : edg) if(find(x) != find(y)) {
+	for(auto [w,x,y] : edg) if(comps.find(x) != comps.find(y)) {
 		mst.push_back({w,x,y});
 		cost += w;
-		unite(x,y);
+		comps.unite(x,y);
 	}
 	return {cost,mst};
 }
