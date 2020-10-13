@@ -55,12 +55,11 @@ public:
 	pair<int,vector<int>> min_cut(int s, int t) {
 		int maxflow = max_flow(s,t);
 		vector<int> part(g.size(),0), mincut;
-		queue<int> q; q.push(s); part[s] = 1;
-		while(q.size()) {
-			int u = q.front(); q.pop();
+		function<void(int)> find_aug = [&] (int u) {
 			for(auto e : g[u]) if(!part[e.to] and e.cap > flow[e.id])
-				part[e.to] = 1, q.push(e.to);
-		}
+				part[e.to] = 1, find_aug(e.to);
+		};
+		part[s] = 1, find_aug(s);
 		for(int u=0; u < g.size(); u++) for(auto e : g[u]) 
 			if(part[u] and !part[e.to] and !(e.id & 1)) mincut.push_back(e.id/2);
 		return {maxflow, mincut};
