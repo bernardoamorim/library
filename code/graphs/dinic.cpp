@@ -8,10 +8,7 @@
 
 class dinic {
 private:
-	struct edge {
-		int to, id, cap; // id % 2 (0 if original, 1 if residual)
-		edge(int to_, int id_, int cap_) : to(to_), id(id_), cap(cap_) {}
-	};
+	struct edge { int to, id, cap; };// id % 2 (0 if original, 1 if residual)
 	vector<vector<edge>> g;
 	vector<int> flow, lvl, it;
 
@@ -44,8 +41,8 @@ public:
 	dinic(int sz) : g(sz), lvl(sz), it(sz) {}
 
 	void add_edge(int u, int v, int cap) {
-		g[u].push_back(edge(v, flow.size(), cap)); flow.push_back(0);
-		g[v].push_back(edge(u, flow.size(), cap)); flow.push_back(cap);
+		g[u].push_back(edge{v, (int)flow.size(), cap}); flow.push_back(0);
+		g[v].push_back(edge{u, (int)flow.size(), cap}); flow.push_back(cap);
 	}
 	int max_flow(int s, int t) {
 		int max_flow = 0;
