@@ -25,7 +25,7 @@ private:
 		}
 		return 0;
 	}
-	int bfs(int s, int t) {
+	bool bfs(int s, int t) {
 		fill(lvl.begin(), lvl.end(), -1); lvl[s] = 0;
 		queue<int> q; q.push(s);
 		while(q.size()) {
