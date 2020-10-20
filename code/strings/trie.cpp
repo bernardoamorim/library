@@ -1,15 +1,17 @@
 // Trie
-// <alphabet size, initial char (i.e.'a' for lowercase letters)> 
+// trie T(alphabet size, initial char (i.e.'a' for lowercase letters)) 
 //
 // insert, erase, count and find: O(|s|)
 // prefix(s) returns all strings that have s as prefix excluding s itself
 
-template<int sigma, char norm> struct trie {
+struct trie {
 	vector<vector<int>> tree;
 	vector<int> end;
-
-	trie() : tree(1,vector<int>(sigma,-1)), end(1,0) {}
-
+	int sigma; char norm;
+	trie(int sigma_, char norm_) : sigma(sigma_), norm(norm_) {
+		tree.push_back(vector<int>(sigma,-1));
+		end.push_back(0);
+	}
 	void insert(string s) {
 		int node = 0;
 		for(auto c : s) {
