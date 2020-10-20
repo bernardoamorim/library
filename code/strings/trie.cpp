@@ -1,5 +1,5 @@
 // Trie
-// <alphabet size, initial char i.e. 'a' for lowercase letters
+// <alphabet size, initial char (i.e.'a' for lowercase letters)> 
 //
 // insert, erase, count and find: O(|s|)
 // prefix(s) returns all strings that have s as prefix excluding s itself
@@ -23,7 +23,6 @@ template<int sigma, char norm> struct trie {
 		}
 		end[node]++;
 	}
-
 	int find(string s) {
 		int node = 0;
 		for(auto c : s) {
@@ -32,17 +31,14 @@ template<int sigma, char norm> struct trie {
 		}
 		return node;
 	}
-
 	int count(string s) {
 		int node = find(s);
 		return node == -1 ? 0 : end[node];
 	}
-	
 	void erase(string s) {
 		int snode = find(s);
 		if(snode != -1) end[snode]--;
 	}
-
 	vector<string> prefix(string s) {
 		vector<string> ret;	
 		int snode = find(s);
