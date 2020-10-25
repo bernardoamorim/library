@@ -14,13 +14,9 @@ struct binary_lifting {
 	
 	void dfs(int v) {
 		in[v] = ctr++;
-		int aux = 0;
-		for(auto u : g[v]) {
-			if(in[u] == -1) {
-				lift[0][u] = v;
-				dfs(u);
-			}
-			aux++;
+		for(auto u : g[v]) if(in[u] == -1) {
+			lift[0][u] = v;
+			dfs(u);
 		}
 		out[v] = ctr++;
 	}
