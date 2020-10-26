@@ -1,6 +1,6 @@
 // SegTree with Lazy Propagation
 //
-// lazy_segtree<seg type, lazy type>
+// segtree<seg type, lazy type>
 // you have to change things inside seg anyway, but I think this way is better
 // 
 // Sum of range implement (lazy_segtree<pair<ll,int>, int>)
@@ -10,7 +10,7 @@
 // query - O(log(n))
 // update - O(log(n))
 
-template<typename T,typename U> struct lazy_segtree {
+template<typename T,typename U> struct segtree {
 	int sz;
 	T s_id = {0,0};
 	U l_id = 0;
@@ -53,7 +53,7 @@ template<typename T,typename U> struct lazy_segtree {
 		return seg[p] = merge(update(s,e,x,2*p,l,m), update(s,e,x,2*p+1,m+1,r));
 	}
 
-	lazy_segtree(int sz_, vector<T> v_={}) : sz(sz_), seg(4*sz_, s_id), lazy(4*sz_, l_id) {
+	segtree(int sz_, vector<T> v_={}) : sz(sz_), seg(4*sz_, s_id), lazy(4*sz_, l_id) {
 		v = (v_.empty() ? vector<T>(sz, {0,1}) : v_); // be careful with initial value
 		build(1,0,sz-1);
 	}
