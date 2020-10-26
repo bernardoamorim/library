@@ -3,7 +3,7 @@
 // segtree<seg type, lazy type>
 // you have to change things inside seg anyway, but I think this way is better
 // 
-// Sum of range implement (lazy_segtree<pair<ll,int>, int>)
+// Sum of range implemented (segtree<pair<ll,int>, int>) ({sum of range, size of range}, val to upd)
 //
 // Assuming ap, merge and comp are O(1)
 // build - O(n)
