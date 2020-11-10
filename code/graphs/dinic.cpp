@@ -6,12 +6,11 @@
 //
 // O(min(m * max_flow, n^2 m)), if graph has capacities 1 O(sqrt(n)*m)
 
-class dinic {
-private:
-	struct edge { int to, id, cap; };// id % 2 (0 if original, 1 if residual)
+struct dinic {
+	struct edge { int to, id, cap; }; // id % 2 (0 if original, 1 if residual)
 	vector<vector<edge>> g;
 	vector<int> flow, lvl, it;
-
+	
 	int dfs(int v, int flow_aug, int t) {
 		if(v == t) return flow_aug;
 		for(int& i = it[v]; i < g[v].size(); i++) {
@@ -37,9 +36,7 @@ private:
 		}
 		return lvl[t] != -1;
 	}
-public:
 	dinic(int sz) : g(sz), lvl(sz), it(sz) {}
-
 	void add_edge(int u, int v, int cap) {
 		g[u].push_back(edge{v, (int)flow.size(), cap}); flow.push_back(0);
 		g[v].push_back(edge{u, (int)flow.size(), cap}); flow.push_back(cap);
