@@ -1,6 +1,6 @@
 // Dinic
 // 
-// max_flow(s,t) computes maximumm flow from s to t (do not call more than once)
+// max_flow(s,t) computes maximum flow from s to t (do not call more than once)
 // min_cut(s,t) returns {max_flow,min_cut}, where in min_cut edges are indexed from
 // the order they are added
 //
