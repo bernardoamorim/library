@@ -10,11 +10,15 @@ typedef long long ll;
 const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f3fll;
 
-int rand(int a, int b) { return rand() % (b-a+1) + a; }
+mt19937 rng((int) chrono::steady_clock::now().time_since_epoch().count());
 
-int main(int argc, char** argv){ _
-	srand(atoi(argv[1]));
-	
+int uniform(int l, int r){
+	uniform_int_distribution<int> uid(l, r);
+	return uid(rng);
+}
 
-	return 0;
+int main(int argc, char** argv){
+  srand(atoi(argv[1]));
+  
+   
 }
