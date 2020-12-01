@@ -4,6 +4,7 @@
 
 ll fexp(ll x, ll y, ll m) { // iterative
 	ll r = 1;
+	x %= m;
 	while (y) {
 		if (y & 1) r = (r*x) % m;
 		y >>= 1;
@@ -13,6 +14,7 @@ ll fexp(ll x, ll y, ll m) { // iterative
 }
 
 ll fexp(ll x, ll y, ll m) { // recursive
+	x %= m;
 	if (!y) return 1;
 	ll ans = fexp(x*x % m, y/2, m);
 	
