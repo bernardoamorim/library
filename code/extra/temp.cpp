@@ -3,7 +3,7 @@
 using namespace std;
 
 #define debbuging false
-#define _ if(not debbuging) ios_base::sync_with_stdio(0);cin.tie(0);
+#define _ if(!debbuging) ios_base::sync_with_stdio(0);cin.tie(0);
 #define debug if(debbuging) cout
 #define endl '\n'
 
