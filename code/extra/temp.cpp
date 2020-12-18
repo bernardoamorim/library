@@ -2,9 +2,10 @@
 
 using namespace std;
 
-#define _ ios_base::sync_with_stdio(0);cin.tie(0);
+#define debbuging false
+#define _ if(not debbuging) ios_base::sync_with_stdio(0);cin.tie(0);
+#define debug if(debbuging) cout
 #define endl '\n'
-#define debug(args...) fprintf(stderr,args)
 
 typedef long long ll;
 
