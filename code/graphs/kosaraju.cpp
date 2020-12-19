@@ -1,7 +1,6 @@
 // Kosaraju
 //
 // Finds the SCCs of a graph and returns its number.
-// In comp[u] there will be a vertex from the same SCC as u
 //
 // O(n + m)
  
@@ -28,7 +27,7 @@ pair<int,vector<int>> kosaraju(int n) {
     int ncomps = 0;
     fill(vis.begin(),vis.end(),0);
     for(int u : to_look) if(!vis[u])
-		dfst(u,u), ncomps++;
+		dfst(u,ncomps++);
  
     return {ncomps, comp};
 }
