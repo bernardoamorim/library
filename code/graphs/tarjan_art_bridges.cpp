@@ -8,8 +8,6 @@
 
 vector<vector<int>> g;
 
-vector<vector<int>> g;
-
 vector<bool> tarjan_ab(int n) {
 	vector<int> in(n,-1), low(n), par(n,-1);
 	vector<bool> art(n,false);
