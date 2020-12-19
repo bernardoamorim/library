@@ -26,8 +26,7 @@ pair<int,vector<int>> kosaraju(int n) {
     
     int ncomps = 0;
     fill(vis.begin(),vis.end(),0);
-    for(int u : to_look) if(!vis[u])
-		dfst(u,ncomps++);
+    for(int u : to_look) if(!vis[u]) dfst(u,ncomps++);
  
     return {ncomps, comp};
 }
