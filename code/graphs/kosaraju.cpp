@@ -1,6 +1,7 @@
 // Kosaraju
 //
 // Finds the SCCs of a graph and returns its number.
+// In comp, if there is a path from comp[i] to comp[j], comp[i] > comp[j]
 //
 // O(n + m)
  
