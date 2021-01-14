@@ -2,9 +2,7 @@
 
 using namespace std;
 
-#define debbuging false
-#define _ if(!debbuging) ios_base::sync_with_stdio(0);cin.tie(0);
-#define debug if(debbuging) cout
+#define _ ios_base::sync_with_stdio(0);cin.tie(0);
 #define endl '\n'
 
 typedef long long ll;
@@ -17,3 +15,11 @@ int main(){ _
 
 	return 0;
 }
+
+/*
+* RECADOS PRA MIM
+
+- Prove ideias e complexidade
+- Fique tranquilo e tente várias abordagens
+- Entenda bem o statement e os samples
+*/
