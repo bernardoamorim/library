@@ -1,28 +1,25 @@
 // Dijkstra
 //
-// Finds the distance from x to every vertex
-// If in the end d[i] = INF, then x does not reach i
+// Finds the distance from s to every vertex
+// If in the end d[v] = LINF, then s does not reach v
 //
-// O(m log(n))
+// O(m.log(n))
 
-int d[MAX];
-vector<pair<int,int>> g[MAX]; // {neighbout, edge weight}
-
+vector<ll> d(MAX);
+vector<pair<int,int>> g[MAX]; // {neighbour, edge weight}
 int n;
  
-void dijkstra(int x) {
-	for(int i=0; i < n; i++) d[i] = INF;
-	d[x] = 0;
-	priority_queue<pair<int,int>> pq;
-	pq.push({0,x});
+void dijkstra(int s) {
+	fill(all(d), LINF);
+	priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<>> pq;
+	d[s] = 0;
+	pq.emplace(0, s);
  
-	while(pq.size()) {
-		auto [ndist,u] = pq.top(); pq.pop();
-		if(-ndist > d[u]) continue;
- 
-		for(auto [idx,w] : g[u]) if(d[idx] > d[u] + w) {
-			d[idx] = d[u] + w;
-			pq.push({-d[idx], idx});
-		}
+	while(not pq.empty()) {
+		auto [dd, v] = pq.top(); pq.pop();
+		if(dd > d[v]) continue;
+		
+		for(auto [u, w] : g[v]) if(d[v] + w < d[u])
+			pq.emplace(d[u] = d[v] + w, u);
 	}
 }
