@@ -12,8 +12,7 @@ int n;
 void dijkstra(int s) {
 	fill(all(d), LINF);
 	priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<>> pq;
-	d[s] = 0;
-	pq.emplace(0, s);
+	pq.emplace(d[s] = 0, s);
  
 	while(not pq.empty()) {
 		auto [dd, v] = pq.top(); pq.pop();
