@@ -1,8 +1,7 @@
 // Tree isomorphism
 // 
-// thash(v, sz) returns the hash of the tree that contains
-// vertex v and has size sz and does not contain the vertices 
-// marked as dead (be careful)
+// thash(v, sz) returns the hash of the tree that contains vertex v 
+// and has size sz and does not contain the vertices marked as dead (be careful)
 // Two trees are isomorph if their hash is the same
 // 
 // Complexity: O(|V|.log(|V|))
@@ -18,7 +17,6 @@ struct tree {
 
 	vector<int> centroids(int root, int ssz) {
 		vector<int> c;
-
 		function<void(int,int)> dfs = [&] (int v, int p) {
 			sz[v] = 1;
 			bool cent = true;
@@ -29,7 +27,6 @@ struct tree {
 			if(cent and ssz - sz[v] <= ssz/2) c.push_back(v);
 		};
 		dfs(root, -1);
-
 		return c;
 	}
 	int fhash(int v, int p) {
@@ -43,7 +40,6 @@ struct tree {
 	ll thash(int root, int ssz) {
 		vector<int> cs = centroids(root, ssz);
 		for(int c : cs) dead[c] = true;
-
 		vector<ll> vh;
 		for(int c : cs) vh.push_back(fhash(c, -1));
 
