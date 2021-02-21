@@ -1,6 +1,6 @@
 // Tree isomorphism
 // 
-// tree_hash(v, sz) returns the hash of the tree that contains
+// thash(v, sz) returns the hash of the tree that contains
 // vertex v and has size sz and does not contain the vertices 
 // marked as dead (be careful)
 // Two trees are isomorph if their hash is the same
@@ -10,7 +10,6 @@
 map<vector<int>, int> mphash;
 
 struct tree {
-	int n;
 	vector<vector<int>> g;
 	vector<int> sz;
 	vector<bool> dead;
@@ -33,7 +32,6 @@ struct tree {
 
 		return c;
 	}
-
 	int fhash(int v, int p) {
 		vector<int> h;
 		for(int u : g[v]) if(u != p and not dead[u]) 
@@ -42,8 +40,7 @@ struct tree {
 		if(not mphash.count(h)) mphash[h] = mphash.size();
 		return mphash[h];
 	}
-
-	ll tree_hash(int root, int ssz) {
+	ll thash(int root, int ssz) {
 		vector<int> cs = centroids(root, ssz);
 		for(int c : cs) dead[c] = true;
 
@@ -56,4 +53,4 @@ struct tree {
 		}
 		return vh[0];
 	}
-}
+};
