@@ -1,26 +1,25 @@
 // Tree isomorphism
 // 
-// thash(v, sz) returns the hash of the tree that contains vertex v 
-// and has size sz and does not contain the vertices marked as dead (be careful)
-// Two trees are isomorph if their hash is the same
+// thash() returns the hash of the tree. 
+// Two trees are isomorph if their hash is the same.
 // 
 // Complexity: O(|V|.log(|V|))
 
 map<vector<int>, int> mphash;
 
 struct tree {
+	int n;
 	vector<vector<int>> g;
 	vector<int> sz;
-	vector<bool> dead;
 
-	tree(int n) : g(n), sz(n), dead(n) {}
+	tree(int n_) : n(n_), g(n_), sz(n_) {}
 
 	vector<int> centroids(int root, int ssz) {
 		vector<int> c;
 		function<void(int,int)> dfs = [&] (int v, int p) {
 			sz[v] = 1;
 			bool cent = true;
-			for(int u : g[v]) if(u != p and not dead[u]) {
+			for(int u : g[v]) if(u != p) {
 				dfs(u, v), sz[v] += sz[u];
 				if(sz[u] > ssz/2) cent = false;
 			}
@@ -31,22 +30,16 @@ struct tree {
 	}
 	int fhash(int v, int p) {
 		vector<int> h;
-		for(int u : g[v]) if(u != p and not dead[u]) 
+		for(int u : g[v]) if(u != p) 
 			h.push_back(fhash(u, v));
 		sort(all(h));
 		if(not mphash.count(h)) mphash[h] = mphash.size();
 		return mphash[h];
 	}
-	ll thash(int root, int ssz) {
-		vector<int> cs = centroids(root, ssz);
-		for(int c : cs) dead[c] = true;
-		vector<ll> vh;
-		for(int c : cs) vh.push_back(fhash(c, -1));
-
-		if(vh.size() > 1) {
-			if(vh[0] > vh[1]) swap(vh[0], vh[1]);
-			return (vh[0] << 30) + vh[1];
-		}
-		return vh[0];
+	ll thash() {
+		vector<int> cs = centroids(0, n);
+		if(cs.size() == 1) return fhash(cs[0], -1);
+		ll h1 = fhash(cs[0], cs[1]), h2 = fhash(cs[1], cs[0]);
+		return (min(h1, h2) << 30) + max(h1, h2);
 	}
 };
