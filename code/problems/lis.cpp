@@ -1,28 +1,28 @@
 // LIS - Longest Increasing Subsequence
 // 
-// Returns a LIS of v
+// Returns the position of the elements of a LIS of v
 //
 // O(n.log(n))
 
-template<typename T> vector<T> lis(vector<T>& v) {
+template<typename T> vector<int> lis(vector<T>& v) {
     int n = v.size(), m = -1;
-    vector<T> d(n+1, INF);
+    vector<T> d(n+1, INF); // infinite value of the given type
     vector<int> l(n);
     d[0] = -INF;
     
-    for(int i=0; i<n; i++) {
+    for(int i = 0; i < n; i++) {
         // For non-decreasing use upper_bound()
-        int t = lower_bound(d.begin(), d.end(), v[i]) - d.begin();
+        int t = lower_bound(all(d), v[i]) - d.begin();
         d[t] = v[i], l[i] = t, m = max(m, t);
     }
  
     int p = n;
     vector<T> ret;
     while(p--) if(l[p] == m) {
-        ret.push_back(v[p]);
+        ret.push_back(p);
         m--;
     }
-    reverse(ret.begin(),ret.end());
+    reverse(all(ret));
  
     return ret;
 }
