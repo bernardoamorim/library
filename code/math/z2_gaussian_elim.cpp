@@ -1,23 +1,22 @@
 // Gaussian Elimination in Z_2 (XOR)
 // 
-// D is the dimesion of the vector space
-// add_vector(v) adds v to the vector space (maybe to its base)
-// coordinates(v) returns v written in the coordinates of the current
-// base of -1 if it does not belong to the vector space.
+// const int D is the dimesion of the vector space
 //
-// Complexity:
-// O(D.floor(D/32))
+// add_vector(v): adds v to the base B
+// coordinates(v): returns v written in the coordinates of B if v \in [B] and -1 if v \notin [B].
+//
+// Complexity: O(D.floor(D/32))
 
 typedef bitset<D> bit;
 
 bit base[D];
-int rk = 0; // current rank of the vector space
+int rk = 0; // current rank [B]
 
 void add_vector(bit v) {
 	for(int i = 0; i < D; i++) if(v[i]) {
 		if(base[i].none()) {
 			base[i] = v, rk++;
-			break;
+			return;
 		}
 		v ^= base[i];
 	}
