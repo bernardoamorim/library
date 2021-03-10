@@ -9,18 +9,10 @@ using namespace std;
 typedef long long ll;
 
 const int INF = 0x3f3f3f3f;
-const ll LINF = 0x3f3f3f3f3f3f3f3fll;
+const ll LINF = 0x3f3f3f3f3f3f3f3fLL;
 
-int main(){ _
+int main() { _
 
 
 	return 0;
 }
-
-/*
-* RECADOS PRA MIM
-
-- Prove ideias e complexidade
-- Fique tranquilo e tente várias abordagens
-- Entenda bem o statement e os samples
-*/
