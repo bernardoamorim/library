@@ -3,14 +3,14 @@
 // const int D is the dimesion of the vector space
 //
 // add_vector(v): adds v to the base B
-// coordinates(v): returns v written in the coordinates of B if v \in [B] and -1 if v \notin [B].
+// coordinates(v): returns v written in the coordinates of B if v \in [B] and -1 if v \notin [B]
 //
 // Complexity: O(D.floor(D/32))
 
 typedef bitset<D> bit;
 
 bit base[D];
-int rk = 0; // current rank [B]
+int rk = 0; // current rank of [B]
 
 void add_vector(bit v) {
 	for(int i = 0; i < D; i++) if(v[i]) {
