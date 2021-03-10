@@ -16,13 +16,13 @@ vector<int> topo_sort(int n) {
 		vis[v] = 1;
 		for(int u : g[v]) {
 			if(vis[u] == 1) dag = false;
-			else if(!vis[u]) dfs(u);
+			else if(not vis[u]) dfs(u);
 		}
 		ret[it--] = v, vis[v] = 2;
 	};
 
-	for(int i=0; i<n; i++) if(!vis[i]) dfs(i);
+	for(int i = 0; i < n; i++) if(not vis[i]) dfs(i);
 
-	if(!dag) ret.clear();	
+	if(not dag) ret.clear();	
 	return ret;
 }
