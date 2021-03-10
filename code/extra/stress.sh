@@ -12,7 +12,7 @@ for ((i = 1; ; i++)) do
 		cat in
 		echo "--> out1:"
 		cat out
-		echo "--> out22:"
+		echo "--> out2:"
 		cat out2
 		break;
 	fi

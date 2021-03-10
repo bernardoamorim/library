@@ -17,8 +17,8 @@ int uniform(int l, int r){
 	return uid(rng);
 }
 
-int main(int argc, char** argv){
-  srand(atoi(argv[1]));
+int main(int argc, char** argv) {
+	srand(atoi(argv[1]));
   
    
 }
