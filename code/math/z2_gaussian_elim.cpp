@@ -14,18 +14,18 @@ int rk = 0; // current rank of [B]
 
 void add_vector(bit v) {
 	for(int i = 0; i < D; i++) if(v[i]) {
-		if(base[i].none()) {
+		if(not base[i][i]) {
 			base[i] = v, rk++;
 			return;
 		}
 		v ^= base[i];
 	}
 }
-
+ 
 bit coordinates(bit v) {
 	bit coord = 0;
 	for(int i = 0; i < D; i++) if(v[i]) {
-		if(base[i].none()) return -1;
+		if(not base[i][i]) return -1;
 		v ^= base[i], coord.set(i);
 	}
 	return coord;
