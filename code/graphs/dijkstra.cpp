@@ -5,12 +5,12 @@
 //
 // O(m.log(n))
 
-vector<ll> d(MAX);
+ll d[MAX];
 vector<pair<int,int>> g[MAX]; // {neighbour, edge weight}
 int n;
  
 void dijkstra(int s) {
-	fill(all(d), LINF);
+	fill(d, d+n, LINF);
 	priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<>> pq;
 	pq.emplace(d[s] = 0, s);
  
