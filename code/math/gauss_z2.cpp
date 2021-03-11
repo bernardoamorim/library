@@ -1,6 +1,6 @@
 // Gaussian Elimination in Z_2 (XOR)
 // 
-// const int D is the dimesion of the vector space
+// D is the dimesion of the vector space
 //
 // add_vector(v): adds v to the base B
 // coordinates(v): returns v written in the coordinates of B if v \in [B] and -1 if v \notin [B]
