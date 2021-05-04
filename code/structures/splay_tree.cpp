@@ -32,7 +32,7 @@ template<typename T> struct SplayTree {
 	~SplayTree() {
 		queue<Node*> q;
 		q.push(root);
-		while (!q.empty()) {
+		while (not q.empty()) {
 			if (q.front())
 				q.push(q.front()->ch[0]), q.push(q.front()->ch[1]);
 			delete q.front();
@@ -42,6 +42,11 @@ template<typename T> struct SplayTree {
 
 	int size() {
 		return root ? root->sz : 0;
+	}
+	
+	int count (T key) {
+		Node *v = lower_bound(key);
+		return v and v->key == key;
 	}
 
 	void rotate(Node *v) {
@@ -59,7 +64,7 @@ template<typename T> struct SplayTree {
 	void splay(Node *v) {
 		while (v->p) {
 			Node *p = v->p, *gp = p->p;
-			if (!gp)
+			if (not gp)
 				rotate(v);
 			else if ((gp->ch[0] == p) ^ (p->ch[0] == v))
 				rotate(v), rotate(v);
@@ -68,35 +73,7 @@ template<typename T> struct SplayTree {
 		}
 		root = v;
 	}
-
-	Node* lower_bound(T key) {
-		Node *v = root, *v_best = nullptr, *last = nullptr;
-		while (v) {
-			last = v;
-			if (v->key < key)
-				v = v->ch[1];
-			else if (v->key == key) {
-				v_best = v;
-				break;
-			}
-			else {
-				if (!v_best or v->key < v_best->key)
-					v_best = v;
-				v = v->ch[0];
-			}
-		}
-		if (last)
-			splay(last);
-		if (v_best)
-			splay(v_best);
-		return v_best;
-	}
-
-	int count (T key) {
-		Node *v = lower_bound(key);
-		return v and v->key == key;
-	}
-
+	
 	void insert(T key) {
 		if (!root) {
 			root = new Node(key);
@@ -109,7 +86,7 @@ template<typename T> struct SplayTree {
 				break;
 			}
 			bool r = v->key < key;
-			if (!v->ch[r]) {
+			if (not v->ch[r]) {
 				v->ch[r] = new Node(key, v);
 				v->update();
 				break;
@@ -143,14 +120,37 @@ template<typename T> struct SplayTree {
 		delete v;
 	}
 
+	Node* lower_bound(T key) {
+		Node *v = root, *v_best = nullptr, *last = nullptr;
+		while (v) {
+			last = v;
+			if (v->key < key)
+				v = v->ch[1];
+			else if (v->key == key) {
+				v_best = v;
+				break;
+			}
+			else {
+				if (not v_best or v->key < v_best->key)
+					v_best = v;
+				v = v->ch[0];
+			}
+		}
+		if (last)
+			splay(last);
+		if (v_best)
+			splay(v_best);
+		return v_best;
+	}
+
 	int order_of_key (T key) {
-		if (!lower_bound(key))
+		if (not lower_bound(key))
 			return root ? root->sz : 0;
 		return root->ch[0] ? root->ch[0]->sz : 0;
 	}
 
 	Node* find_by_order (int k) {
-		if (size() >= k)
+		if (size() <= k)
 			return nullptr;
 		Node *v = root;
 		while (true) {
@@ -159,7 +159,7 @@ template<typename T> struct SplayTree {
 				v = v->ch[0];
 			else {
 				k -= lsz;
-				if (!k)
+				if (k == 0)
 					break;
 				k--, v = v->ch[1];	
 			}
