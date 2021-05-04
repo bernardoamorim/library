@@ -7,8 +7,8 @@
 struct DSU {
 	vector<int> id, sz;
 	
-	dsu(int sz_) : id(sz_), sz(sz_,1) { 
-		iota(id.begin(), id.end(),0); 
+	dsu(int sz_) : id(sz_), sz(sz_, 1) { 
+		iota(id.begin(), id.end(), 0); 
 	}
 	
 	int find(int a) { 
@@ -17,10 +17,10 @@ struct DSU {
 	
 	void unite(int a, int b) {
 		a = find(a), b = find(b);
-		if(a == b) 
+		if (a == b) 
 			return;
-		if(sz[a] < sz[b]) 
-			swap(a,b);
+		if (sz[a] < sz[b]) 
+			swap(a, b);
 		sz[a] += sz[b], id[b] = a;
 	}
 };
