@@ -10,19 +10,20 @@ template<typename T> vector<int> lis(vector<T>& v) {
     vector<int> l(n);
     d[0] = -INF;
     
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         // For non-decreasing use upper_bound()
-        int t = lower_bound(all(d), v[i]) - d.begin();
+        int t = lower_bound(d.begin(), d.end(), v[i]) - d.begin();
         d[t] = v[i], l[i] = t, m = max(m, t);
     }
  
     int p = n;
     vector<T> ret;
-    while(p--) if(l[p] == m) {
-        ret.push_back(p);
-        m--;
+    while (p--) {
+    	if (l[p] == m) {
+			ret.push_back(p);
+        	m--;
+        }
     }
-    reverse(all(ret));
- 
+    reverse(ret.begin(), ret.end());
     return ret;
 }
