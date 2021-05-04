@@ -12,19 +12,25 @@ template<int D> struct gauss_z2 {
 	int rk = 0; // rank of the current basis
 
 	void add_vector(bitset<D> v) {
-		for(int i = D-1; i >= 0; i--) if(v[i]) {
-			if(not basis[i][i]) {
-				basis[i] = v, rk++;
-				return;
+		for (int i = D - 1; i >= 0; i--) 
+			if (v[i]) {	
+				if (not basis[i][i]) {
+					basis[i] = v, rk++;
+					return;
+				}
+				v ^= basis[i];
 			}
-			v ^= basis[i];
 		}
 	}
+	
 	bitset<D> coordinates(bitset<D> v) {
 		bitset<D> coord = 0;
-		for(int i = D-1; i >= 0; i--) if(v[i]) {
-			if(not basis[i][i]) return -1;
-			v ^= basis[i], coord.set(i);
+		for (int i = D - 1; i >= 0; i--) {
+			if (v[i]) {
+				if (not basis[i][i]) 
+					return -1;
+				v ^= basis[i], coord.set(i);
+			}
 		}
 		return coord;
 	}
