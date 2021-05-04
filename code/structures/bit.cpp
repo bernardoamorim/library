@@ -30,7 +30,7 @@ struct Bit {
 			tree[w][p] += x, p += p & -p;
 	}
 	
-	ll pref_ (int p, int w) {
+	ll pref_(int p, int w) {
 		ll ret = 0;
 		p++;
 		while (p > 0) 
