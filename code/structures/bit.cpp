@@ -7,15 +7,15 @@
 // constructor: O(n)
 // add, pref, sum: O(log(n))
 
-struct BIT {
+struct Bit {
 	int n;
 	vector<ll> tree[2];
 	
-	bit(int n_) : n(n_) { 
+	Bit(int n_) : n(n_) { 
 		tree[0].resize(n+1), tree[1].resize(n+1); 
 	}
 	
-	bit(vector<int> v) : n(v.size()) {
+	Bit(vector<int> v) : n(v.size()) {
 		tree[0].resize(n+1), tree[1].resize(n+1);
 		for (int i = 1; i <= n; i++) {
 			tree[1][i] += v[i-1];

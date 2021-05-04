@@ -4,10 +4,10 @@
 //
 // O(a(n)) ~= O(1)
 
-struct DSU {
+struct Dsu {
 	vector<int> id, sz;
 	
-	dsu(int sz_) : id(sz_), sz(sz_, 1) { 
+	Dsu(int sz_) : id(sz_), sz(sz_, 1) { 
 		iota(id.begin(), id.end(), 0); 
 	}
 	
