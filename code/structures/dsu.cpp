@@ -6,6 +6,7 @@
 
 struct DSU {
 	vector<int> id, sz;
+	
 	dsu(int sz_) : id(sz_), sz(sz_,1) { 
 		iota(id.begin(), id.end(),0); 
 	}
