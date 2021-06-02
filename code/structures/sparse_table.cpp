@@ -25,13 +25,10 @@ struct SparseTable {
 		int n = v_.size(), n2 = floor(log2(n)) + 1;
 		v = v_, log = vector<int>(n + 1);
 		assert(k >= n2);
-		for (int i = 0; i < n2; i++)
-			table[i] = vector<T>(n);
+		for (int i = 0; i < n2; i++) table[i] = vector<T>(n);
 
-		for (int i = 1; i <= n; i++) 
-			log[i] = __builtin_clz(1) - __builtin_clz(i);
-		for (int i = 0; i < n; i++)
-			table[0][i] = i; // change to v[i] to use values instead of indices
+		for (int i = 1; i <= n; i++) log[i] = __builtin_clz(1) - __builtin_clz(i);
+		for (int i = 0; i < n; i++) table[0][i] = i; // change to v[i] to use values instead of indices
 
 		for (int p = 1; p < n2; p++)
 			for (int i = 0; i + (1 << p) <= n; i++)
