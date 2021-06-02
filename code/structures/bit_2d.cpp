@@ -5,7 +5,7 @@
 //
 // Complexity:
 // constructor: O(n)
-// add, pref, sum: O(log(n))
+// update, pref, sum: O(log(n))
 
 struct Bit_2D {
 	int n;
@@ -15,7 +15,7 @@ struct Bit_2D {
 		tree[0].resize(n+1), tree[1].resize(n+1); 
 	}
 	
-	void add_(ll x, int p, int w) {
+	void update_(ll x, int p, int w) {
 		for (p++; p <= n; p += p & -p) tree[w][p] += x;
 	}
 	ll pref_(int p, int w) {
@@ -23,10 +23,9 @@ struct Bit_2D {
 		for (p++; p > 0; p -= p & -p) ret += tree[w][p];
 		return ret;
 	}
-	void add(ll x, int l, int r = -1) {
-		if (r == -1) r = l;
-		add_(x, l, 0), add_(-x, r+1, 0);
-		add_(-x*l, l, 1), add_(x*(r+1), r+1, 1);
+	void update(ll x, int l, int r) {
+		update_(x, l, 0), update_(-x, r+1, 0);
+		update_(-x*l, l, 1), update_(x*(r+1), r+1, 1);
 	}
 	ll pref(int p) { return pref_(p,0) * (p+1) + pref_(p,1); }
 	ll query(int l, int r) { return pref(r) - pref(l-1); }

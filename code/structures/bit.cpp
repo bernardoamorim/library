@@ -5,7 +5,7 @@
 //
 // Complexity:
 // constructor: O(n)
-// add, pref, query: O(log(n))
+// update, pref, query: O(log(n))
 
 struct Bit {
 	int n;
@@ -13,7 +13,7 @@ struct Bit {
 
 	Bit(int n_) : n(n_), tree(n_ + 1) {}
 
-	void add(int x, int p) {
+	void update(int x, int p) {
 		for (p++; p <= n; p += p & -p) tree[p] += x;
 	}
 	ll pref(int p) {
