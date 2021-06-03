@@ -20,7 +20,7 @@ template<typename T> vector<int> lis(vector<T>& v) {
     vector<T> ret;
     while (p--) {
     	if (l[p] == m) {
-			ret.push_back(p);
+		ret.push_back(p);
         	m--;
         }
     }
