@@ -5,14 +5,14 @@
 //
 // O(m log(m) + m a(m))
 
-typedef tuple<int,int,int> t3;
+typedef tuple<int, int, int> t3;
 
 vector<t3> edg; // {weight,[x,y]}
 
-// struct dsu()
+// struct Dsu()
 
-pair<ll,vector<t3>> kruskal(int n) {
-	dsu comps(n);
+pair<ll, vector<t3>> kruskal(int n) {
+	Dsu comps(n);
 	sort(edg.begin(), edg.end());
 	
 	ll cost = 0;
