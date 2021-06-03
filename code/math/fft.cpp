@@ -11,7 +11,7 @@ inline complex<ld> unity_root(int n, bool inv) { // unity_root(n)^n = (e^(2.pi.i
 }
 
 template<typename T> void fft(vector<T>& a, bool inv) {
-	for(int i = 1, j = 0; i < a.size(); i++) { // reverse bit order
+	for (int i = 1, j = 0; i < a.size(); i++) { // reverse bit order
 		int bit = a.size() / 2;
 		while (j & bit) j ^= bit, bit /= 2;
 		j ^= bit;
@@ -34,7 +34,8 @@ template<typename T> void fft(vector<T>& a, bool inv) {
 }
 
 template<typename T> vector<T> convolution(vector<T> A, vector<T> B) {
-	int n = 1 << (__builtin_clz(1) - builtin_clz(n) + (n & (n - 1) ? 1 : 0)); // log ceil
+	int n = A.size() + B.size();
+	n = 1 << (__builtin_clz(1) - __builtin_clz(n) + (n & (n - 1) ? 1 : 0)); // log ceil
 	A.resize(n), B.resize(n);
 
 	fft(A, false), fft(B, false);
