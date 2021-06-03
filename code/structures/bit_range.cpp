@@ -7,11 +7,11 @@
 // constructor: O(n)
 // update, pref, sum: O(log(n))
 
-struct Bit_2D {
+struct BitRange {
 	int n;
 	vector<ll> tree[2];
 	
-	Bit_2D(int n_) : n(n_) { 
+	BitRange(int n_) : n(n_) { 
 		tree[0].resize(n+1), tree[1].resize(n+1); 
 	}
 	
@@ -32,7 +32,7 @@ struct Bit_2D {
 };
 
 /* linear build on a vector
-Bit_2D(vector<int> v) : n(v.size()) {
+BitRange(vector<int> v) : n(v.size()) {
 	tree[0].resize(n+1), tree[1].resize(n+1);
 	for (int i = 1; i <= n; i++) {
 		tree[1][i] += v[i-1];
