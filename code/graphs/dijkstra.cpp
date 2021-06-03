@@ -14,11 +14,13 @@ void dijkstra(int s) {
 	priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<>> pq;
 	pq.emplace(d[s] = 0, s);
  
-	while(not pq.empty()) {
-		auto [dd, v] = pq.top(); pq.pop();
-		if(dd > d[v]) continue;
+	while (not pq.empty()) {
+		auto [dd, v] = pq.top(); 
+		pq.pop();
+		if (dd > d[v]) continue;
 		
-		for(auto [u, w] : g[v]) if(d[v] + w < d[u])
-			pq.emplace(d[u] = d[v] + w, u);
+		for (auto [u, w] : g[v]) 
+			if(d[v] + w < d[u])
+				pq.emplace(d[u] = d[v] + w, u);
 	}
 }
