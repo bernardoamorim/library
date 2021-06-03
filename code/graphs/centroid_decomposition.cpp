@@ -15,7 +15,7 @@ int centroid(int root, int ssz) {
 	function<void(int,int)> dfs = [&] (int v, int p) {
 		sz[v] = 1;
 		bool cent = true;
-		for(int u : g[v]) if (u != p and not dead[u]) {
+		for (int u : g[v]) if (u != p and not dead[u]) {
 			dfs(u, v), sz[v] += sz[u];
 			if(sz[u] > ssz/2) cent = false;
 		}
