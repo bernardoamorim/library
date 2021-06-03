@@ -14,10 +14,8 @@ vector<int> suffix_array(string s) {
 	
 	while (k < n) {
 		vector<int> b(N), nsa(n), np(n);
-		for (int i = 0; i < n; i++) 
-			b[p[(i-k+n) % n]]++;
-		for (int i = 1; i < N; i++) 
-			b[i] += b[i-1];
+		for (int i = 0; i < n; i++) b[p[(i-k+n) % n]]++;
+		for (int i = 1; i < N; i++) b[i] += b[i-1];
 		
 		for (int i = n-1; i >= 0; i--) 
 			nsa[--b[p[(sa[i]-k+n) % n]]] = (sa[i]-k+n) % n;
@@ -26,8 +24,7 @@ vector<int> suffix_array(string s) {
 		pair<int,int> prev, cur;
 		for (int i = 0; i < n; i++) {
 			cur = {p[sa[i]], p[(sa[i]+k) % n]};
-			if (i and prev != cur) 
-				ct++;
+			if (i and prev != cur) ct++;
 			np[sa[i]] = ct, prev = cur;
 		}
 		p = np, k = (k ? 2 * k : 1);
@@ -43,8 +40,7 @@ vector<int> lcp(string s, vector<int> sa) {
 	for (int i = 0; i < n - 1; i++) {
 		if (p[i]) {
 			int j = sa[p[i]-1];
-			while (s[i+k] == s[j+k]) 
-				k++;
+			while (s[i+k] == s[j+k]) k++;
 			lcp[p[i]] = k, k = max(k-1, 0);
 		}
 	}
