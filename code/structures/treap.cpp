@@ -25,27 +25,21 @@ struct Treap {
 	void prop() {
 		if (rev) {
 			swap(l, r);
-			if (l)
-				l->rev ^= 1;
-			if (r)
-				r->rev ^= 1;
+			if (l) l->rev ^= 1;
+			if (r) r->rev ^= 1;
 		}
 		if (lazy != 0) {
 			val += lazy, sum += lazy * sz;
-			if (l)
-				l->lazy += lazy;
-			if (r)
-				r->lazy += lazy;
+			if (l) l->lazy += lazy;
+			if (r) r->lazy += lazy;
 		}
 		rev = false, lazy = 0;
 	}
 	
 	void recalc() {
 		sz = 1, sum = val;
-		if (l)
-			l->prop(), sz += l->sz, sum += l->sum;
-		if (r)
-			r->prop(), sz += r->sz, sum += r->sum;
+		if (l) l->prop(), sz += l->sz, sum += l->sum;
+		if (r) r->prop(), sz += r->sz, sum += r->sum;
 		lazy = 0;
 	}
 };
@@ -53,8 +47,7 @@ struct Treap {
 int size(Treap *t) { return t ? t->sz : 0; }
 
 Treap* merge(Treap* tl, Treap* tr) {
-	if (not tl or not tr) 
-		return tl ? tl : tr;
+	if (not tl or not tr) return tl ? tl : tr;
 	tl->prop(), tr->prop();
 	if (tl->prior > tr->prior) {
 		tl->r = merge(tl->r, tr), tl->recalc();
@@ -68,8 +61,7 @@ Treap* merge(Treap* tl, Treap* tr) {
 
 // k will be the size of the left (if possible, otherwise I don't know)
 pair<Treap*, Treap*> index_split(Treap* t, int k) { 
-	if (not t) 
-		return {nullptr, nullptr};
+	if (not t) return {nullptr, nullptr};
 	t->prop();
 	if (k <= size(t->l)) {
 		auto [tll, tlr] = index_split(t->l, k);
