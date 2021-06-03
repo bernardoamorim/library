@@ -15,11 +15,11 @@ int centroid(int root, int ssz) {
 	function<void(int,int)> dfs = [&] (int v, int p) {
 		sz[v] = 1;
 		bool cent = true;
-		for(int u : g[v]) if(u != p and not dead[u]) {
+		for(int u : g[v]) if (u != p and not dead[u]) {
 			dfs(u, v), sz[v] += sz[u];
 			if(sz[u] > ssz/2) cent = false;
 		}
-		if(cent and ssz - sz[v] <= ssz/2) c = v;
+		if (cent and ssz - sz[v] <= ssz/2) c = v;
 	};
 	dfs(root, -1);
 	return c;
@@ -28,7 +28,7 @@ int centroid(int root, int ssz) {
 int cdecomp(int v, int ssz) {
 	int c = centroid(v, ssz);
 	dead[c] = true;
-	for(int u : g[c]) if(not dead[u]) {
+	for (int u : g[c]) if (not dead[u]) {
 		int nssz = (sz[u] > sz[c] ? ssz - sz[c] : sz[u]);
 		ctree[c].push_back(cdecomp(u, nssz));
 	}
