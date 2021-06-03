@@ -12,9 +12,10 @@ int d[MAX], par[MAX];
 pair<int, vector<int>> center() {
 	int f, df;
 	function<void(int)> dfs = [&] (int v) {
-		if(d[v] > df) f = v, df = d[v];
-		for(int u : g[v]) if(u != par[v]) 
-			d[u] = d[v] + 1, par[u] = v, dfs(u);
+		if (d[v] > df) f = v, df = d[v];
+		for (int u : g[v]) 
+			if(u != par[v]) 
+				d[u] = d[v] + 1, par[u] = v, dfs(u);
 	};
  
 	f = df = par[0] = -1, d[0] = 0;
@@ -24,8 +25,8 @@ pair<int, vector<int>> center() {
 	dfs(root);
  
  	vector<int> c;
-	while(f != -1) {
-		if(d[f] == df/2 or d[f] == (df+1)/2) c.push_back(f);
+	while (f != -1) {
+		if (d[f] == df / 2 or d[f] == (df + 1) / 2) c.push_back(f);
 		f = par[f];
 	}
  
