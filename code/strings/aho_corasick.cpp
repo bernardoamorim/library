@@ -1,8 +1,8 @@
 // Aho-Corasick
 //
-// Link - points to the largest proper prefix in the trie
-// End - number of inserted strings that end in this node of the trie
-// Exit - links to the largest string that is suffix of the current one and was inserted
+// link - points to the largest proper prefix in the trie
+// end - number of inserted strings that end in this node of the trie
+// exit - links to the largest string that is suffix of the current one and was inserted
 // (use exit to compute number of overlaping matches)
 // get_link(at, c) leads to largest common prefix of string represented by trie[at] + c in the trie
 //
