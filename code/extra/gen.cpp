@@ -19,6 +19,6 @@ int uniform(int l, int r){
 
 int main(int argc, char** argv) {
 	srand(atoi(argv[1]));
-  
-   
+	
+	
 }
