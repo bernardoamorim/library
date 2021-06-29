@@ -1,4 +1,4 @@
-// Tarjan algotith for finding articulation points and bridges
+// Tarjan algotithm for finding articulation points and bridges
 //
 // Assumes that the graph g is simple.
 // If disconnected, it will find articulation and bridges considering only the component.
