@@ -11,21 +11,21 @@ vector<int> g[MAX];
 
 namespace LCA { ... }
 
-int in[MAX], out[MAX], vertex[2 * MAX];
+int in[MAX], out[MAX], vtx[2 * MAX];
 bool on[MAX];
 
 int dif, freq[MAX];
 vector<int> w;
 
 void dfs(int v, int p, int &t) {
-	vertex[t] = v, in[v] = t++;
+	vtx[t] = v, in[v] = t++;
 	for (int u : g[v]) if (u != p) 
 		dfs(u, v, t);
-	vertex[t] = v, out[v] = t++;
+	vtx[t] = v, out[v] = t++;
 }
 
 void update(int p) { // change this function
-	int v = vertex[p];
+	int v = vtx[p];
 	if (not on[v]) { // insert vertex v
 		dif += (freq[w[v]] == 0);
 		freq[w[v]]++;
