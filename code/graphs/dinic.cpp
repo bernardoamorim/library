@@ -18,16 +18,14 @@ struct Dinic {
 	Dinic (int sz) : g(sz), lvl(sz), it(sz) {}
 	
 	void add_edge(int u, int v, int cap) {
-		g[u].emplace_back(v, (int) flow.size(), cap); 
+		g[u].emplace_back(v, size(flow), cap); 
 		flow.push_back(0);
-		g[v].emplace_back(u, (int) flow.size(), cap); 
+		g[v].emplace_back(u, size(flow), cap); 
 		flow.push_back(cap);
 	}
-
 	int dfs(int v, int flow_aug, int t) {
-		if (v == t)
-			return flow_aug;
-		for (int& i = it[v]; i < g[v].size(); i++) {
+		if (v == t) return flow_aug;
+		for (int& i = it[v]; i < size(g[v]); i++) {
 			edge e = g[v][i];
 			int left = e.cap - flow[e.id];
 			if (lvl[e.to] == lvl[v] + 1 and left) {
@@ -41,11 +39,11 @@ struct Dinic {
 		return 0;
 	}
 	bool bfs(int s, int t) {
-		fill(lvl.begin(), lvl.end(), -1); 
+		fill(begin(lvl), end(lvl), -1); 
 		lvl[s] = 0;
 		queue<int> q; 
 		q.push(s);
-		while (not q.empty()) {
+		while (not empty(q)) {
 			int u = q.front(); 
 			q.pop();
 			for (edge e : g[u])
@@ -54,20 +52,18 @@ struct Dinic {
 		}
 		return lvl[t] != -1;
 	}
-
 	int max_flow(int s, int t) {
 		int max_flow = 0;
 		while (bfs(s, t)) {
-			fill(it.begin(), it.end(), 0);
+			fill(begin(it), end(it), 0);
 			while (int aug = dfs(s, INF, t)) 
 				max_flow += aug;
 		}
 		return max_flow;	
 	}
-
 	pair<int, vector<int>> min_cut(int s, int t) {
 		int maxflow = max_flow(s, t);
-		vector<int> part(g.size(), 0), mincut;
+		vector<int> part(size(g), 0), mincut;
 		function<void(int)> find_aug = [&] (int u) {
 			for (edge e : g[u]) 
 				if (not part[e.to] and e.cap > flow[e.id])
@@ -75,7 +71,7 @@ struct Dinic {
 		};
 
 		part[s] = 1, find_aug(s);
-		for (int u = 0; u < g.size(); u++) 
+		for (int u = 0; u < size(g); u++) 
 			for (edge e : g[u]) 
 				if (part[u] and not part[e.to] and not (e.id & 1)) 
 					mincut.push_back(e.id / 2);
