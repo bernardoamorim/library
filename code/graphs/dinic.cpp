@@ -18,10 +18,8 @@ struct Dinic {
 	Dinic (int sz) : g(sz), lvl(sz), it(sz) {}
 	
 	void add_edge(int u, int v, int cap) {
-		g[u].emplace_back(v, size(flow), cap); 
-		flow.push_back(0);
-		g[v].emplace_back(u, size(flow), cap); 
-		flow.push_back(cap);
+		g[u].emplace_back(v, size(flow), cap), flow.push_back(0);
+		g[v].emplace_back(u, size(flow), cap), flow.push_back(cap);
 	}
 	int dfs(int v, int flow_aug, int t) {
 		if (v == t) return flow_aug;
@@ -29,8 +27,7 @@ struct Dinic {
 			edge e = g[v][i];
 			int left = e.cap - flow[e.id];
 			if (lvl[e.to] == lvl[v] + 1 and left) {
-				int aug = dfs(e.to, min(flow_aug, left), t);
-				if (aug) {
+				if (int aug = dfs(e.to, min(flow_aug, left), t)) {
 					flow[e.id] += aug, flow[e.id^1] -= aug;
 					return aug;
 				}
@@ -66,7 +63,6 @@ struct Dinic {
 			for (edge e : g[u]) if (not part[e.to] and e.cap > flow[e.id])
 				part[e.to] = 1, find_aug(e.to);
 		};
-
 		part[s] = 1, find_aug(s);
 		for (int u = 0; u < size(g); u++) 
 			for (edge e : g[u]) if (part[u] and not part[e.to] and not (e.id & 1)) 
