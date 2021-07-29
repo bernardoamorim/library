@@ -46,9 +46,8 @@ struct Dinic {
 		while (not empty(q)) {
 			int u = q.front(); 
 			q.pop();
-			for (edge e : g[u])
-				if (e.cap - flow[e.id] > 0 and lvl[e.to] == -1)
-					lvl[e.to] = lvl[u] + 1, q.push(e.to);
+			for (edge e : g[u]) if (e.cap - flow[e.id] > 0 and lvl[e.to] == -1)
+				lvl[e.to] = lvl[u] + 1, q.push(e.to);
 		}
 		return lvl[t] != -1;
 	}
@@ -56,8 +55,7 @@ struct Dinic {
 		int max_flow = 0;
 		while (bfs(s, t)) {
 			fill(begin(it), end(it), 0);
-			while (int aug = dfs(s, INF, t)) 
-				max_flow += aug;
+			while (int aug = dfs(s, INF, t)) max_flow += aug;
 		}
 		return max_flow;	
 	}
@@ -65,16 +63,14 @@ struct Dinic {
 		int maxflow = max_flow(s, t);
 		vector<int> part(size(g), 0), mincut;
 		function<void(int)> find_aug = [&] (int u) {
-			for (edge e : g[u]) 
-				if (not part[e.to] and e.cap > flow[e.id])
-					part[e.to] = 1, find_aug(e.to);
+			for (edge e : g[u]) if (not part[e.to] and e.cap > flow[e.id])
+				part[e.to] = 1, find_aug(e.to);
 		};
 
 		part[s] = 1, find_aug(s);
 		for (int u = 0; u < size(g); u++) 
-			for (edge e : g[u]) 
-				if (part[u] and not part[e.to] and not (e.id & 1)) 
-					mincut.push_back(e.id / 2);
+			for (edge e : g[u]) if (part[u] and not part[e.to] and not (e.id & 1)) 
+				mincut.push_back(e.id / 2);
 		return {maxflow, mincut};
 	}
 };
