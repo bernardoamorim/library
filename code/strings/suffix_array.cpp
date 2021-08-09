@@ -6,7 +6,7 @@
 
 vector<int> suffix_array(string s) {
 	s += '$';
-	int n = size(s), N = max(n, 260), ct = 0, k = 0;
+	int n = s.size(), N = max(n, 260), ct = 0, k = 0;
 
 	vector<int> p(n), sa(n);
 	
@@ -33,7 +33,7 @@ vector<int> suffix_array(string s) {
 }
 
 vector<int> lcp(string s, vector<int> sa) {
-	int n = size(s), k = 0;
+	int n = s.size(), k = 0;
 	vector<int> p(n), lcp(n);
 	for (int i = 0; i < n; i++) 
 		p[sa[i]] = i;
@@ -44,5 +44,5 @@ vector<int> lcp(string s, vector<int> sa) {
 			lcp[p[i]] = k, k = max(k - 1, 0);
 		}
 	}
-	return vector<int>(begin(lcp)+1, end(lcp));
+	return vector<int>(begin(lcp) + 1, end(lcp));
 }
