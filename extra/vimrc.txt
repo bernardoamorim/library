@@ -1,0 +1,6 @@
+// to open config:
+vim ~/.vimrc
+
+
+// paste this inside:
+:set ts=4 sw=4 autoindent si nu mouse=a
