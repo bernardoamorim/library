@@ -44,7 +44,6 @@ struct SuffixTree {
 			l = i + 1;
 		}
 	}
-
 	void build(const string& s_) {
 		s = s_, n = s.size(), sa = suffix_array(s), vlcp = lcp(s, sa);		
 		rmq.build(vlcp);
