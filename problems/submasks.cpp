@@ -1,6 +1,6 @@
 // Submasks
 //
-// Iterates in all submasks of mask
+// Iterates in all submasks of mask (except for the empty submask, be careful)
 // O(3^n)
 
 for (int mask = 0; mask < (1 << n); mask++) {
